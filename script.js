@@ -819,18 +819,17 @@ function createBinaryParticles() {
   if (!experienceSection) return;
 
   setInterval(() => {
-    if (Math.random() > 0.3) {
+    if (Math.random() > 0.15) {
       const particle = document.createElement("div");
       const binary = Math.random() > 0.5 ? "1" : "0";
       particle.textContent = binary;
 
-      const isLeft = Math.random() > 0.5;
       const colors = ["#00d9ff", "#ff00ff", "#00ff9d"];
       const color = colors[Math.floor(Math.random() * colors.length)];
 
       particle.style.cssText = `
         position: absolute;
-        ${isLeft ? "left" : "right"}: ${Math.random() * 20}%;
+        left: ${Math.random() * 100}%;
         top: ${Math.random() * 100}%;
         color: ${color};
         font-family: 'Courier New', monospace;
@@ -846,7 +845,7 @@ function createBinaryParticles() {
 
       setTimeout(() => particle.remove(), 7000);
     }
-  }, 250);
+  }, 50);
 }
 
 // Initialize Projects synthwave effect when visible
@@ -962,6 +961,49 @@ window.addEventListener("scroll", () => {
     }
   });
 });
+
+// Fetch GitHub stars dynamically
+async function updateGitHubStars() {
+  const projectLinks = document.querySelectorAll(
+    '.project-link[href*="github.com"]'
+  );
+
+  for (const link of projectLinks) {
+    const href = link.getAttribute("href");
+    const match = href.match(/github\.com\/([^/]+)\/([^/]+)/);
+
+    if (match) {
+      const owner = match[1];
+      const repo = match[2];
+      const starsSpan = link.closest(".project-footer").querySelector(".stars");
+
+      if (starsSpan) {
+        try {
+          const response = await fetch(
+            `https://api.github.com/repos/${owner}/${repo}`
+          );
+          if (response.ok) {
+            const data = await response.json();
+            const stars = data.stargazers_count;
+            starsSpan.textContent = `⭐ ${stars}`;
+            starsSpan.classList.add("loaded");
+            link.closest(".project-footer").classList.add("has-stars");
+          }
+        } catch (error) {
+          console.log(`Failed to fetch stars for ${repo}:`, error);
+          // Keep stars hidden if API request fails (footer already aligned to right by default)
+        }
+      }
+    }
+  }
+}
+
+// Update stars when page loads
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", updateGitHubStars);
+} else {
+  updateGitHubStars();
+}
 
 console.log("🚀 Portfolio loaded successfully!");
 console.log("Made with ❤️ by Giuseppe Bellamacina");
