@@ -490,12 +490,16 @@ function createNeuralNetwork() {
   if (!aboutSection) return;
 
   const canvas = document.createElement("canvas");
+  canvas.className = "neural-canvas";
   canvas.style.cssText = `
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 80%;
+    max-width: 1400px;
+    max-height: 800px;
     pointer-events: none;
     z-index: 1;
   `;
@@ -511,11 +515,11 @@ function createNeuralNetwork() {
 
   // Define feedforward network structure
   const layers = [
-    { nodes: 5, x: 0.15 },  // Input layer
-    { nodes: 8, x: 0.35 },  // Hidden layer 1
-    { nodes: 6, x: 0.55 },  // Hidden layer 2
-    { nodes: 4, x: 0.75 },  // Hidden layer 3
-    { nodes: 3, x: 0.90 }   // Output layer
+    { nodes: 5, x: 0.15 }, // Input layer
+    { nodes: 8, x: 0.35 }, // Hidden layer 1
+    { nodes: 6, x: 0.55 }, // Hidden layer 2
+    { nodes: 4, x: 0.75 }, // Hidden layer 3
+    { nodes: 3, x: 0.9 }, // Output layer
   ];
 
   const neurons = [];
@@ -525,7 +529,7 @@ function createNeuralNetwork() {
   layers.forEach((layer, layerIndex) => {
     const layerNeurons = [];
     const spacing = canvas.height / (layer.nodes + 1);
-    
+
     for (let i = 0; i < layer.nodes; i++) {
       const neuron = {
         x: layer.x * canvas.width,
@@ -533,7 +537,7 @@ function createNeuralNetwork() {
         radius: 6,
         layer: layerIndex,
         activation: Math.random(),
-        pulsePhase: Math.random() * Math.PI * 2
+        pulsePhase: Math.random() * Math.PI * 2,
       };
       layerNeurons.push(neuron);
       neurons.push(neuron);
@@ -541,14 +545,14 @@ function createNeuralNetwork() {
 
     // Create connections to previous layer
     if (layerIndex > 0) {
-      const prevLayer = neurons.filter(n => n.layer === layerIndex - 1);
-      layerNeurons.forEach(currentNeuron => {
-        prevLayer.forEach(prevNeuron => {
+      const prevLayer = neurons.filter((n) => n.layer === layerIndex - 1);
+      layerNeurons.forEach((currentNeuron) => {
+        prevLayer.forEach((prevNeuron) => {
           connections.push({
             from: prevNeuron,
             to: currentNeuron,
             weight: Math.random(),
-            pulseOffset: Math.random() * Math.PI * 2
+            pulseOffset: Math.random() * Math.PI * 2,
           });
         });
       });
@@ -556,21 +560,22 @@ function createNeuralNetwork() {
   });
 
   let time = 0;
-  
+
   // Create impulse system for forward propagation
   const impulses = [];
   setInterval(() => {
     // Create impulses from input layer
-    const inputNeurons = neurons.filter(n => n.layer === 0);
-    inputNeurons.forEach(inputNeuron => {
-      const outgoingConns = connections.filter(c => c.from === inputNeuron);
-      outgoingConns.forEach(conn => {
-        if (Math.random() > 0.92) { // 8% chance per impulse
+    const inputNeurons = neurons.filter((n) => n.layer === 0);
+    inputNeurons.forEach((inputNeuron) => {
+      const outgoingConns = connections.filter((c) => c.from === inputNeuron);
+      outgoingConns.forEach((conn) => {
+        if (Math.random() > 0.92) {
+          // 8% chance per impulse
           impulses.push({
             connection: conn,
             progress: 0,
             speed: 0.015 + Math.random() * 0.01,
-            brightness: 0.5 + Math.random() * 0.5
+            brightness: 0.5 + Math.random() * 0.5,
           });
         }
       });
@@ -584,106 +589,125 @@ function createNeuralNetwork() {
     // Draw connections (base lines)
     connections.forEach((conn, index) => {
       const weight = conn.weight;
-      
+
       ctx.beginPath();
       ctx.moveTo(conn.from.x, conn.from.y);
       ctx.lineTo(conn.to.x, conn.to.y);
-      
+
       ctx.strokeStyle = `rgba(0, 217, 255, ${0.1 * weight})`;
       ctx.lineWidth = 0.5 + weight * 0.5;
       ctx.stroke();
     });
-    
+
     // Draw and update impulses
     impulses.forEach((impulse, index) => {
       impulse.progress += impulse.speed;
-      
+
       if (impulse.progress >= 1) {
         impulses.splice(index, 1);
-        
+
         // Trigger new impulses from destination neuron
         const destNeuron = impulse.connection.to;
-        const outgoingConns = connections.filter(c => c.from === destNeuron);
-        outgoingConns.forEach(conn => {
-          if (Math.random() > 0.75) { // 25% propagation chance
+        const outgoingConns = connections.filter((c) => c.from === destNeuron);
+        outgoingConns.forEach((conn) => {
+          if (Math.random() > 0.75) {
+            // 25% propagation chance
             impulses.push({
               connection: conn,
               progress: 0,
               speed: 0.015 + Math.random() * 0.01,
-              brightness: impulse.brightness * 0.9
+              brightness: impulse.brightness * 0.9,
             });
           }
         });
         return;
       }
-      
+
       const conn = impulse.connection;
       const x = conn.from.x + (conn.to.x - conn.from.x) * impulse.progress;
       const y = conn.from.y + (conn.to.y - conn.from.y) * impulse.progress;
-      
+
       // Draw impulse trail
       const trailLength = 0.15;
       for (let i = 0; i < 5; i++) {
-        const trailProgress = impulse.progress - (trailLength * i / 5);
+        const trailProgress = impulse.progress - (trailLength * i) / 5;
         if (trailProgress < 0) continue;
-        
+
         const trailX = conn.from.x + (conn.to.x - conn.from.x) * trailProgress;
         const trailY = conn.from.y + (conn.to.y - conn.from.y) * trailProgress;
         const alpha = impulse.brightness * (1 - i / 5);
-        
+
         ctx.beginPath();
         ctx.arc(trailX, trailY, 3 - i * 0.5, 0, Math.PI * 2);
-        const gradient = ctx.createRadialGradient(trailX, trailY, 0, trailX, trailY, 3 - i * 0.5);
+        const gradient = ctx.createRadialGradient(
+          trailX,
+          trailY,
+          0,
+          trailX,
+          trailY,
+          3 - i * 0.5
+        );
         gradient.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
         gradient.addColorStop(0.5, `rgba(0, 255, 255, ${alpha * 0.8})`);
         gradient.addColorStop(1, `rgba(0, 217, 255, 0)`);
         ctx.fillStyle = gradient;
         ctx.fill();
       }
-      
+
       // Draw main impulse
       ctx.beginPath();
       ctx.arc(x, y, 4, 0, Math.PI * 2);
       const gradient = ctx.createRadialGradient(x, y, 0, x, y, 4);
       gradient.addColorStop(0, `rgba(255, 255, 255, ${impulse.brightness})`);
-      gradient.addColorStop(0.4, `rgba(0, 255, 255, ${impulse.brightness * 0.9})`);
+      gradient.addColorStop(
+        0.4,
+        `rgba(0, 255, 255, ${impulse.brightness * 0.9})`
+      );
       gradient.addColorStop(1, `rgba(0, 217, 255, 0)`);
       ctx.fillStyle = gradient;
       ctx.fill();
     });
 
     // Draw neurons
-    neurons.forEach(neuron => {
+    neurons.forEach((neuron) => {
       const pulse = Math.sin(time + neuron.pulsePhase) * 0.3 + 0.7;
       const size = neuron.radius * pulse;
-      
+
       // Outer glow
       ctx.beginPath();
       ctx.arc(neuron.x, neuron.y, size + 4, 0, Math.PI * 2);
       const gradient = ctx.createRadialGradient(
-        neuron.x, neuron.y, 0,
-        neuron.x, neuron.y, size + 4
+        neuron.x,
+        neuron.y,
+        0,
+        neuron.x,
+        neuron.y,
+        size + 4
       );
-      
+
       if (neuron.layer === 0) {
-        gradient.addColorStop(0, 'rgba(0, 255, 157, 0.8)');
-        gradient.addColorStop(1, 'rgba(0, 255, 157, 0)');
+        gradient.addColorStop(0, "rgba(0, 255, 157, 0.8)");
+        gradient.addColorStop(1, "rgba(0, 255, 157, 0)");
       } else if (neuron.layer === layers.length - 1) {
-        gradient.addColorStop(0, 'rgba(255, 0, 255, 0.8)');
-        gradient.addColorStop(1, 'rgba(255, 0, 255, 0)');
+        gradient.addColorStop(0, "rgba(255, 0, 255, 0.8)");
+        gradient.addColorStop(1, "rgba(255, 0, 255, 0)");
       } else {
-        gradient.addColorStop(0, 'rgba(0, 217, 255, 0.8)');
-        gradient.addColorStop(1, 'rgba(0, 217, 255, 0)');
+        gradient.addColorStop(0, "rgba(0, 217, 255, 0.8)");
+        gradient.addColorStop(1, "rgba(0, 217, 255, 0)");
       }
-      
+
       ctx.fillStyle = gradient;
       ctx.fill();
-      
+
       // Core
       ctx.beginPath();
       ctx.arc(neuron.x, neuron.y, size, 0, Math.PI * 2);
-      ctx.fillStyle = neuron.layer === 0 ? '#00ff9d' : 
-                      neuron.layer === layers.length - 1 ? '#ff00ff' : '#00d9ff';
+      ctx.fillStyle =
+        neuron.layer === 0
+          ? "#00ff9d"
+          : neuron.layer === layers.length - 1
+          ? "#ff00ff"
+          : "#00d9ff";
       ctx.fill();
     });
 
@@ -722,7 +746,8 @@ function createFloatingCode() {
 
   setInterval(() => {
     if (Math.random() > 0.5) {
-      const snippet = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+      const snippet =
+        codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
       const code = document.createElement("div");
       code.textContent = snippet.text;
       code.style.cssText = `
@@ -788,6 +813,42 @@ if (aboutSection) {
   aboutObserver.observe(aboutSection);
 }
 
+// Binary Data Particles for Experience Section
+function createBinaryParticles() {
+  const experienceSection = document.querySelector(".experience");
+  if (!experienceSection) return;
+
+  setInterval(() => {
+    if (Math.random() > 0.3) {
+      const particle = document.createElement("div");
+      const binary = Math.random() > 0.5 ? "1" : "0";
+      particle.textContent = binary;
+
+      const isLeft = Math.random() > 0.5;
+      const colors = ["#00d9ff", "#ff00ff", "#00ff9d"];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+
+      particle.style.cssText = `
+        position: absolute;
+        ${isLeft ? "left" : "right"}: ${Math.random() * 20}%;
+        top: ${Math.random() * 100}%;
+        color: ${color};
+        font-family: 'Courier New', monospace;
+        font-size: ${10 + Math.random() * 8}px;
+        font-weight: bold;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 1;
+        text-shadow: 0 0 5px ${color};
+        animation: binaryFloat ${4 + Math.random() * 3}s ease-out forwards;
+      `;
+      experienceSection.appendChild(particle);
+
+      setTimeout(() => particle.remove(), 7000);
+    }
+  }, 250);
+}
+
 // Initialize Projects synthwave effect when visible
 const projectsObserver = new IntersectionObserver(
   (entries) => {
@@ -806,15 +867,34 @@ if (projectsSection) {
   projectsObserver.observe(projectsSection);
 }
 
+// Initialize Experience binary particles when visible
+const experienceObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        createBinaryParticles();
+        experienceObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.1 }
+);
+
+const experienceSection = document.querySelector(".experience");
+if (experienceSection) {
+  experienceObserver.observe(experienceSection);
+}
+
 // Dynamic typing effect with multiple texts
 const typingElement = document.getElementById("typing-text");
 if (typingElement) {
   const texts = [
     "AI/ML Engineer",
     "Data Scientist",
-    "Ethical Hacker & Security Enthusiast",
+    "Ethical Hacker",
     "Star Wars Fanatic",
     "Tame Impala Listener",
+    "Cars Enthusiast",
     "Anime Enjoyer",
     "Literally Ryan Gosling",
     "Cyberpunk Dreamer",

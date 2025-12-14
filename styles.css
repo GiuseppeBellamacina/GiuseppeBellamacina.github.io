@@ -200,7 +200,7 @@ body::before {
 
 /* Hero Section */
 .hero {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -459,6 +459,23 @@ body::before {
   }
 }
 
+@keyframes binaryFloat {
+  0% {
+    opacity: 0;
+    transform: translateX(0) translateY(0);
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(30px) translateY(-80px);
+  }
+}
+
 @keyframes matrixFall {
   0% {
     transform: translateY(0);
@@ -673,12 +690,16 @@ body::before {
 
 /* About Section */
 .about {
+  min-height: 100vh;
   padding: 100px 0;
   background: var(--bg-dark);
   scroll-snap-align: start;
   scroll-snap-stop: normal;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Neural Network Background for About */
@@ -841,6 +862,66 @@ body::before {
   background: var(--bg-card);
   scroll-snap-align: start;
   scroll-snap-stop: normal;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Circuit Board Pattern */
+.experience::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(90deg, rgba(0, 217, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(0, 217, 255, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 20% 30%, rgba(0, 255, 157, 0.05) 2px, transparent 2px),
+    radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.05) 2px, transparent 2px),
+    radial-gradient(circle at 40% 60%, rgba(0, 217, 255, 0.05) 2px, transparent 2px),
+    radial-gradient(circle at 70% 20%, rgba(0, 255, 157, 0.05) 2px, transparent 2px),
+    radial-gradient(circle at 30% 80%, rgba(255, 0, 255, 0.05) 2px, transparent 2px);
+  background-size: 50px 50px, 50px 50px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Data Stream Effect */
+.experience::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(90deg, 
+      transparent 0%,
+      rgba(0, 217, 255, 0.05) 45%,
+      rgba(0, 255, 255, 0.1) 50%,
+      rgba(0, 217, 255, 0.05) 55%,
+      transparent 100%
+    );
+  background-size: 200% 100%;
+  animation: dataStream 8s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes dataStream {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.experience .container {
+  position: relative;
+  z-index: 1;
 }
 
 .cv-download {
@@ -1271,7 +1352,7 @@ body::before {
 /* Skills Section with Space Background */
 .skills {
   padding: 100px 0;
-  background: radial-gradient(ellipse at bottom, #1a1f3a 0%, #0a0e27 100%);
+  background: linear-gradient(180deg, #1a1f3a 0%, #0a0e27 80%, #0a0e27 100%);
   position: relative;
   overflow: hidden;
   scroll-snap-align: start;
@@ -1286,7 +1367,9 @@ body::before {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: -200px;
+  mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%);
   background-image: 
     /* Large bright stars */ radial-gradient(
       3px 3px at 15% 25%,
@@ -1373,7 +1456,9 @@ body::before {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: -200px;
+  mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%);
   background: radial-gradient(
       circle at 20% 30%,
       rgba(138, 43, 226, 0.08) 0%,
@@ -1635,7 +1720,32 @@ body::before {
 /* Contact Section */
 .contact {
   padding: 100px 0;
-  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-card) 100%);
+  background: linear-gradient(180deg, 
+    #0a0e27 0%, 
+    #0a0e27 35%, 
+    #0a0e27 38%,
+    #0a0f27 41%,
+    #0b0f27 44%,
+    #0b1027 47%,
+    #0c1027 50%,
+    #0d1127 53%,
+    #0d1227 56%,
+    #0e1228 59%, 
+    #0e1328 62%,
+    #0f1328 65%,
+    #101428 68%, 
+    #111528 71%,
+    #121629 74%,
+    #131729 77%, 
+    #141829 80%,
+    #15192a 83%,
+    #161a2a 86%,
+    #171b2b 89%,
+    #181b2b 92%,
+    #191c2b 95%,
+    #1a1d2c 98%, 
+    var(--bg-card) 100%
+  );
   text-align: center;
   scroll-snap-align: start;
   scroll-snap-stop: normal;
