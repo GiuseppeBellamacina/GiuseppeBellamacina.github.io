@@ -507,22 +507,59 @@ if (skillsSection) {
   skillsObserver.observe(skillsSection);
 }
 
-// Typing effect for hero subtitle (optional enhancement)
-const subtitle = document.querySelector(".subtitle");
-if (subtitle) {
-  const text = subtitle.textContent;
-  subtitle.textContent = "";
-  let i = 0;
+// Dynamic typing effect with multiple texts
+const typingElement = document.getElementById("typing-text");
+if (typingElement) {
+  const texts = [
+    "AI/ML Engineer",
+    "Data Scientist",
+    "Ethical Hacker & Security Enthusiast",
+    "Star Wars Fanatic",
+    "Tame Impala Listener",
+    "Anime Enjoyer",
+    "Literally Ryan Gosling",
+    "Cyberpunk Dreamer",
+  ];
 
-  function typeWriter() {
-    if (i < text.length) {
-      subtitle.textContent += text.charAt(i);
-      i++;
-      setTimeout(typeWriter, 50);
+  let textIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  let isPaused = false;
+
+  function typeEffect() {
+    const currentText = texts[textIndex];
+
+    if (isPaused) {
+      setTimeout(typeEffect, 2000); // Pause for 2 seconds after typing
+      isPaused = false;
+      isDeleting = true;
+      return;
     }
+
+    if (isDeleting) {
+      typingElement.textContent = currentText.substring(0, charIndex - 1);
+      charIndex--;
+
+      if (charIndex === 0) {
+        isDeleting = false;
+        textIndex = (textIndex + 1) % texts.length;
+        setTimeout(typeEffect, 500); // Pause before typing next text
+        return;
+      }
+    } else {
+      typingElement.textContent = currentText.substring(0, charIndex + 1);
+      charIndex++;
+
+      if (charIndex === currentText.length) {
+        isPaused = true;
+      }
+    }
+
+    const typingSpeed = isDeleting ? 30 : 80;
+    setTimeout(typeEffect, typingSpeed);
   }
 
-  setTimeout(typeWriter, 500);
+  setTimeout(typeEffect, 1000);
 }
 
 // Add active state to navigation based on scroll position
