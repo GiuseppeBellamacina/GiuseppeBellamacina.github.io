@@ -33,7 +33,7 @@ This is my personal portfolio website showcasing my projects, skills, and experi
 - Font Awesome icons
 - GitHub Pages for hosting
 
-## Recent Updates (December 2024)
+## Recent Updates (December 2025)
 
 ### 🎨 UI/UX Improvements
 
