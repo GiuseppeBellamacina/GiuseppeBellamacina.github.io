@@ -133,36 +133,67 @@ techIcons.forEach((icon) => {
   });
 });
 
-// Add random rainbow effect to some icons
+// Add random rainbow effect with smooth transitions and better randomization
 function addRandomRainbowEffect() {
   const icons = Array.from(document.querySelectorAll(".tech-icon"));
-  // Select random 20% of icons
-  const numberOfRainbowIcons = Math.floor(icons.length * 0.2);
-  const shuffled = icons.sort(() => 0.5 - Math.random());
-  const selectedIcons = shuffled.slice(0, numberOfRainbowIcons);
 
-  selectedIcons.forEach((icon, index) => {
-    // Add rainbow effect with delay
-    setTimeout(() => {
-      icon.classList.add("rainbow-glow");
-    }, index * 200);
+  // Create rainbow layer for each icon
+  icons.forEach((icon) => {
+    const rainbowLayer = document.createElement("div");
+    rainbowLayer.className = "rainbow-layer";
+    icon.appendChild(rainbowLayer);
   });
 
-  // Randomly change which icons have rainbow effect every 10 seconds
-  setInterval(() => {
-    // Remove from all
-    icons.forEach((icon) => icon.classList.remove("rainbow-glow"));
+  const numberOfRainbowIcons = Math.floor(icons.length * 0.15); // 15% instead of 20%
 
-    // Add to new random selection
-    const newShuffled = icons.sort(() => 0.5 - Math.random());
-    const newSelected = newShuffled.slice(0, numberOfRainbowIcons);
+  // Better shuffle using Fisher-Yates algorithm
+  function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  }
 
-    newSelected.forEach((icon, index) => {
+  function activateRandomIcons() {
+    const shuffled = shuffleArray(icons);
+    const selectedIcons = shuffled.slice(0, numberOfRainbowIcons);
+
+    selectedIcons.forEach((icon, index) => {
+      // Stagger activation with random delays for more organic feel (3-8 seconds spread)
+      const randomDelay = Math.random() * 5000 + index * 400;
       setTimeout(() => {
         icon.classList.add("rainbow-glow");
-      }, index * 200);
+      }, randomDelay);
     });
-  }, 10000);
+  }
+
+  function deactivateAllIcons() {
+    icons.forEach((icon, index) => {
+      // Stagger deactivation with random delays (2-6 seconds spread)
+      const randomDelay = Math.random() * 4000 + index * 150;
+      setTimeout(() => {
+        icon.classList.remove("rainbow-glow");
+      }, randomDelay);
+    });
+  }
+
+  // Initial activation
+  activateRandomIcons();
+
+  // Cycle: deactivate -> wait -> activate -> wait
+  let cycleCount = 0;
+  setInterval(() => {
+    if (cycleCount % 2 === 0) {
+      // Deactivate phase
+      deactivateAllIcons();
+    } else {
+      // Activate phase (wait a bit longer before reactivating)
+      setTimeout(() => activateRandomIcons(), 3000);
+    }
+    cycleCount++;
+  }, 12000); // Every 12 seconds alternate between deactivate and activate
 }
 
 // Initialize rainbow effect after icons are loaded
@@ -170,13 +201,15 @@ setTimeout(() => {
   addRandomRainbowEffect();
 }, 1000);
 
-// Add cyberpunk matrix rain effect to navbar
+// Add cyberpunk matrix rain effect to navbar with high density
 function createMatrixRain() {
   const navbar = document.querySelector(".navbar");
-  const characters = "01アイウエオカキクケコサシスセソタチツテトナニヌネノ";
+  const characters =
+    "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
 
   setInterval(() => {
-    if (Math.random() > 0.95) {
+    // Much higher spawn rate - 70% chance instead of 5%
+    if (Math.random() > 0.3) {
       const rain = document.createElement("span");
       rain.textContent =
         characters[Math.floor(Math.random() * characters.length)];
@@ -184,15 +217,17 @@ function createMatrixRain() {
       rain.style.left = Math.random() * 100 + "%";
       rain.style.top = "0";
       rain.style.color = "var(--primary-color)";
-      rain.style.fontSize = "12px";
-      rain.style.opacity = "0.3";
+      rain.style.fontSize = Math.random() * 6 + 10 + "px"; // Variable size 10-16px
+      rain.style.opacity = (Math.random() * 0.3 + 0.2).toString(); // Variable opacity 0.2-0.5
       rain.style.pointerEvents = "none";
-      rain.style.animation = "matrixFall 2s linear forwards";
+      rain.style.animation = `matrixFall ${
+        Math.random() * 1 + 1.5
+      }s linear forwards`; // Variable speed 1.5-2.5s
       navbar.appendChild(rain);
 
-      setTimeout(() => rain.remove(), 2000);
+      setTimeout(() => rain.remove(), 2500);
     }
-  }, 100);
+  }, 50); // More frequent checks (50ms instead of 100ms)
 }
 
 // Create shooting stars in the skills section - MUCH MORE FREQUENT
