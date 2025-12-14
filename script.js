@@ -788,12 +788,12 @@ if (aboutSection) {
   aboutObserver.observe(aboutSection);
 }
 
-// Initialize Projects floating code when visible
+// Initialize Projects synthwave effect when visible
 const projectsObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        createFloatingCode();
+        // Synthwave effect is pure CSS, no JS needed
         projectsObserver.unobserve(entry.target);
       }
     });
