@@ -484,6 +484,269 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// Neural Network Feedforward Structure for About Section
+function createNeuralNetwork() {
+  const aboutSection = document.querySelector(".about");
+  if (!aboutSection) return;
+
+  const canvas = document.createElement("canvas");
+  canvas.style.cssText = `
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  `;
+  aboutSection.appendChild(canvas);
+  const ctx = canvas.getContext("2d");
+
+  function resizeCanvas() {
+    canvas.width = aboutSection.offsetWidth;
+    canvas.height = aboutSection.offsetHeight;
+  }
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
+
+  // Define feedforward network structure
+  const layers = [
+    { nodes: 5, x: 0.15 },  // Input layer
+    { nodes: 8, x: 0.35 },  // Hidden layer 1
+    { nodes: 6, x: 0.55 },  // Hidden layer 2
+    { nodes: 4, x: 0.75 },  // Hidden layer 3
+    { nodes: 3, x: 0.90 }   // Output layer
+  ];
+
+  const neurons = [];
+  const connections = [];
+
+  // Create neurons for each layer
+  layers.forEach((layer, layerIndex) => {
+    const layerNeurons = [];
+    const spacing = canvas.height / (layer.nodes + 1);
+    
+    for (let i = 0; i < layer.nodes; i++) {
+      const neuron = {
+        x: layer.x * canvas.width,
+        y: spacing * (i + 1),
+        radius: 6,
+        layer: layerIndex,
+        activation: Math.random(),
+        pulsePhase: Math.random() * Math.PI * 2
+      };
+      layerNeurons.push(neuron);
+      neurons.push(neuron);
+    }
+
+    // Create connections to previous layer
+    if (layerIndex > 0) {
+      const prevLayer = neurons.filter(n => n.layer === layerIndex - 1);
+      layerNeurons.forEach(currentNeuron => {
+        prevLayer.forEach(prevNeuron => {
+          connections.push({
+            from: prevNeuron,
+            to: currentNeuron,
+            weight: Math.random(),
+            pulseOffset: Math.random() * Math.PI * 2
+          });
+        });
+      });
+    }
+  });
+
+  let time = 0;
+  
+  // Create impulse system for forward propagation
+  const impulses = [];
+  setInterval(() => {
+    // Create impulses from input layer
+    const inputNeurons = neurons.filter(n => n.layer === 0);
+    inputNeurons.forEach(inputNeuron => {
+      const outgoingConns = connections.filter(c => c.from === inputNeuron);
+      outgoingConns.forEach(conn => {
+        if (Math.random() > 0.92) { // 8% chance per impulse
+          impulses.push({
+            connection: conn,
+            progress: 0,
+            speed: 0.015 + Math.random() * 0.01,
+            brightness: 0.5 + Math.random() * 0.5
+          });
+        }
+      });
+    });
+  }, 600);
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    time += 0.02;
+
+    // Draw connections (base lines)
+    connections.forEach((conn, index) => {
+      const weight = conn.weight;
+      
+      ctx.beginPath();
+      ctx.moveTo(conn.from.x, conn.from.y);
+      ctx.lineTo(conn.to.x, conn.to.y);
+      
+      ctx.strokeStyle = `rgba(0, 217, 255, ${0.1 * weight})`;
+      ctx.lineWidth = 0.5 + weight * 0.5;
+      ctx.stroke();
+    });
+    
+    // Draw and update impulses
+    impulses.forEach((impulse, index) => {
+      impulse.progress += impulse.speed;
+      
+      if (impulse.progress >= 1) {
+        impulses.splice(index, 1);
+        
+        // Trigger new impulses from destination neuron
+        const destNeuron = impulse.connection.to;
+        const outgoingConns = connections.filter(c => c.from === destNeuron);
+        outgoingConns.forEach(conn => {
+          if (Math.random() > 0.75) { // 25% propagation chance
+            impulses.push({
+              connection: conn,
+              progress: 0,
+              speed: 0.015 + Math.random() * 0.01,
+              brightness: impulse.brightness * 0.9
+            });
+          }
+        });
+        return;
+      }
+      
+      const conn = impulse.connection;
+      const x = conn.from.x + (conn.to.x - conn.from.x) * impulse.progress;
+      const y = conn.from.y + (conn.to.y - conn.from.y) * impulse.progress;
+      
+      // Draw impulse trail
+      const trailLength = 0.15;
+      for (let i = 0; i < 5; i++) {
+        const trailProgress = impulse.progress - (trailLength * i / 5);
+        if (trailProgress < 0) continue;
+        
+        const trailX = conn.from.x + (conn.to.x - conn.from.x) * trailProgress;
+        const trailY = conn.from.y + (conn.to.y - conn.from.y) * trailProgress;
+        const alpha = impulse.brightness * (1 - i / 5);
+        
+        ctx.beginPath();
+        ctx.arc(trailX, trailY, 3 - i * 0.5, 0, Math.PI * 2);
+        const gradient = ctx.createRadialGradient(trailX, trailY, 0, trailX, trailY, 3 - i * 0.5);
+        gradient.addColorStop(0, `rgba(255, 255, 255, ${alpha})`);
+        gradient.addColorStop(0.5, `rgba(0, 255, 255, ${alpha * 0.8})`);
+        gradient.addColorStop(1, `rgba(0, 217, 255, 0)`);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+      }
+      
+      // Draw main impulse
+      ctx.beginPath();
+      ctx.arc(x, y, 4, 0, Math.PI * 2);
+      const gradient = ctx.createRadialGradient(x, y, 0, x, y, 4);
+      gradient.addColorStop(0, `rgba(255, 255, 255, ${impulse.brightness})`);
+      gradient.addColorStop(0.4, `rgba(0, 255, 255, ${impulse.brightness * 0.9})`);
+      gradient.addColorStop(1, `rgba(0, 217, 255, 0)`);
+      ctx.fillStyle = gradient;
+      ctx.fill();
+    });
+
+    // Draw neurons
+    neurons.forEach(neuron => {
+      const pulse = Math.sin(time + neuron.pulsePhase) * 0.3 + 0.7;
+      const size = neuron.radius * pulse;
+      
+      // Outer glow
+      ctx.beginPath();
+      ctx.arc(neuron.x, neuron.y, size + 4, 0, Math.PI * 2);
+      const gradient = ctx.createRadialGradient(
+        neuron.x, neuron.y, 0,
+        neuron.x, neuron.y, size + 4
+      );
+      
+      if (neuron.layer === 0) {
+        gradient.addColorStop(0, 'rgba(0, 255, 157, 0.8)');
+        gradient.addColorStop(1, 'rgba(0, 255, 157, 0)');
+      } else if (neuron.layer === layers.length - 1) {
+        gradient.addColorStop(0, 'rgba(255, 0, 255, 0.8)');
+        gradient.addColorStop(1, 'rgba(255, 0, 255, 0)');
+      } else {
+        gradient.addColorStop(0, 'rgba(0, 217, 255, 0.8)');
+        gradient.addColorStop(1, 'rgba(0, 217, 255, 0)');
+      }
+      
+      ctx.fillStyle = gradient;
+      ctx.fill();
+      
+      // Core
+      ctx.beginPath();
+      ctx.arc(neuron.x, neuron.y, size, 0, Math.PI * 2);
+      ctx.fillStyle = neuron.layer === 0 ? '#00ff9d' : 
+                      neuron.layer === layers.length - 1 ? '#ff00ff' : '#00d9ff';
+      ctx.fill();
+    });
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+// Floating Code Snippets for Projects Section
+function createFloatingCode() {
+  const projectsSection = document.querySelector(".projects");
+  if (!projectsSection) return;
+
+  const codeSnippets = [
+    { text: "model = ResNet50()", color: "rgba(0, 217, 255, 0.9)" },
+    { text: "from langchain import Agent", color: "rgba(255, 0, 255, 0.9)" },
+    { text: "graph.query(cypher)", color: "rgba(0, 255, 157, 0.9)" },
+    { text: "async def predict(x):", color: "rgba(0, 217, 255, 0.9)" },
+    { text: "nn.Conv2d(64, 128)", color: "rgba(255, 0, 255, 0.9)" },
+    { text: "GraphRAG.retrieve()", color: "rgba(0, 255, 157, 0.9)" },
+    { text: "torch.optim.Adam()", color: "rgba(0, 217, 255, 0.9)" },
+    { text: "class MultiAgent:", color: "rgba(255, 0, 255, 0.9)" },
+    { text: "neo4j.connect(uri)", color: "rgba(0, 255, 157, 0.9)" },
+    { text: "loss.backward()", color: "rgba(0, 217, 255, 0.9)" },
+    { text: "embeddings = model()", color: "rgba(255, 0, 255, 0.9)" },
+    { text: "agent.run(task)", color: "rgba(0, 255, 157, 0.9)" },
+    { text: "df.predict_proba(X)", color: "rgba(0, 217, 255, 0.9)" },
+    { text: "vectorstore.search()", color: "rgba(255, 0, 255, 0.9)" },
+    { text: "model.compile(loss)", color: "rgba(0, 217, 255, 0.9)" },
+    { text: "@dataclass\nclass Node:", color: "rgba(0, 255, 157, 0.9)" },
+    { text: "pipeline.fit(X, y)", color: "rgba(0, 217, 255, 0.9)" },
+    { text: "response = llm.call()", color: "rgba(255, 0, 255, 0.9)" },
+    { text: "scaler.transform(data)", color: "rgba(0, 217, 255, 0.9)" },
+    { text: "optimizer.step()", color: "rgba(255, 0, 255, 0.9)" },
+  ];
+
+  setInterval(() => {
+    if (Math.random() > 0.5) {
+      const snippet = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
+      const code = document.createElement("div");
+      code.textContent = snippet.text;
+      code.style.cssText = `
+        position: absolute;
+        left: ${Math.random() * 85 + 5}%;
+        top: ${Math.random() * 80 + 10}%;
+        color: ${snippet.color};
+        font-family: 'Courier New', monospace;
+        font-size: ${11 + Math.random() * 5}px;
+        font-weight: 500;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 1;
+        white-space: pre;
+        text-shadow: 0 0 10px ${snippet.color};
+        animation: codeFloat ${5 + Math.random() * 3}s ease-out forwards;
+      `;
+      projectsSection.appendChild(code);
+
+      setTimeout(() => code.remove(), 8000);
+    }
+  }, 600);
+}
+
 // Initialize effects
 addRandomFloat();
 createMatrixRain();
@@ -505,6 +768,42 @@ const skillsObserver = new IntersectionObserver(
 const skillsSection = document.querySelector(".skills");
 if (skillsSection) {
   skillsObserver.observe(skillsSection);
+}
+
+// Initialize About neural network when visible
+const aboutObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        createNeuralNetwork();
+        aboutObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.1 }
+);
+
+const aboutSection = document.querySelector(".about");
+if (aboutSection) {
+  aboutObserver.observe(aboutSection);
+}
+
+// Initialize Projects floating code when visible
+const projectsObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        createFloatingCode();
+        projectsObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.1 }
+);
+
+const projectsSection = document.querySelector(".projects");
+if (projectsSection) {
+  projectsObserver.observe(projectsSection);
 }
 
 // Dynamic typing effect with multiple texts
