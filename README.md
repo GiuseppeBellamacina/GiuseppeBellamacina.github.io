@@ -37,6 +37,7 @@ This is my personal portfolio website showcasing my projects, skills, and experi
 To run this website locally:
 
 1. Clone the repository
+
 ```bash
 git clone https://github.com/GiuseppeBellamacina/GiuseppeBellamacina.github.io.git
 ```
