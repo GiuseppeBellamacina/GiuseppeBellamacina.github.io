@@ -224,7 +224,7 @@
 					}
 				});
 			},
-			{ threshold: 0.1 }
+			{ threshold: 0.05, rootMargin: '100px' }
 		);
 
 		if (projectsSection) {

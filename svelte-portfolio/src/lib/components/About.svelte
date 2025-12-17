@@ -88,11 +88,15 @@
 
 		// Impulse system for forward propagation
 		const impulses: Impulse[] = [];
+		const maxImpulses = 30; // Limita numero impulsi contemporanei
+		
 		setInterval(() => {
+			if (!isVisible || impulses.length > maxImpulses) return;
+			
 			// Create impulses from input layer (8% spawn rate)
 			const inputNeurons = neurons.filter((n) => n.layer === 0);
 			inputNeurons.forEach((neuron) => {
-				if (Math.random() < 0.08) {
+				if (Math.random() < 0.08 && impulses.length < maxImpulses) {
 					const nextConnections = connections.filter((c) => c.from === neuron);
 					nextConnections.forEach((conn) => {
 						impulses.push({
@@ -135,9 +139,9 @@
 				const x = impulse.from.x + (impulse.to.x - impulse.from.x) * impulse.progress;
 				const y = impulse.from.y + (impulse.to.y - impulse.from.y) * impulse.progress;
 
-				// Add to trail
+				// Add to trail (ridotto a 3 per performance)
 				impulse.trail.push({ x, y });
-				if (impulse.trail.length > 5) {
+				if (impulse.trail.length > 3) {
 					impulse.trail.shift();
 				}
 
@@ -223,7 +227,9 @@
 				ctx.stroke();
 			});
 
-			requestAnimationFrame(animate);
+			if (isVisible) {
+				requestAnimationFrame(animate);
+			}
 		}
 
 		animate();
@@ -234,17 +240,26 @@
 	}
 
 	onMount(() => {
-		// IntersectionObserver for lazy loading
+		// IntersectionObserver per lazy loading
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
-					if (entry.isIntersecting && !isVisible) {
-						isVisible = true;
-						createNeuralNetwork();
+					if (entry.isIntersecting) {
+						if (!isVisible) {
+							isVisible = true;
+							// Avvia subito senza delay
+							setTimeout(() => createNeuralNetwork(), 0);
+						} else {
+							// Riprendi animazioni
+							isVisible = true;
+						}
+					} else {
+						// Pausa quando completamente fuori viewport
+						isVisible = false;
 					}
 				});
 			},
-			{ threshold: 0.1 }
+			{ threshold: 0.05, rootMargin: '50px' }
 		);
 
 		if (aboutSection) {

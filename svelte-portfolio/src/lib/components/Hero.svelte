@@ -83,7 +83,14 @@
 			>
 		</p>
 		<div class="hero-buttons">
-			<a href="#experience" class="btn btn-primary">View Experience</a>
+			<a
+				href="#experience"
+				class="btn btn-primary"
+				onclick={(e) => {
+					e.preventDefault();
+					document.querySelector('#experience')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				}}>View Experience</a
+			>
 			<a href="/assets/cv.pdf" download="Giuseppe_Bellamacina_CV.pdf" class="btn btn-secondary">
 				<i class="fas fa-download"></i> Download CV
 			</a>

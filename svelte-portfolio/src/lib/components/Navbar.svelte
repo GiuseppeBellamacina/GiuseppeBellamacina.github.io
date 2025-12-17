@@ -27,6 +27,7 @@
 	}
 
 	// Matrix rain effect
+	let isNavbarVisible = true;
 	function createMatrixRain() {
 		if (!navbarElement) return;
 
@@ -34,20 +35,22 @@
 			'01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
 
 		setInterval(() => {
+			// Pausa se navbar non visibile
+			if (!isNavbarVisible) return;
 			// 70% spawn rate
 			if (Math.random() > 0.3) {
 				const char = document.createElement('div');
 				char.textContent = characters[Math.floor(Math.random() * characters.length)];
 				char.style.cssText = `
 					position: absolute;
-					top: -20px;
+					top: 0;
 					left: ${Math.random() * 100}%;
-					color: ${['#00ff00', '#00ffff', '#ff00ff'][Math.floor(Math.random() * 3)]};
+					color: var(--primary-color);
 					font-size: ${10 + Math.random() * 6}px;
 					opacity: ${0.2 + Math.random() * 0.3};
 					pointer-events: none;
 					animation: matrixFall ${1.5 + Math.random()}s linear forwards;
-					z-index: 999;
+					z-index: 1;
 				`;
 				navbarElement.appendChild(char);
 

@@ -1,0 +1,73 @@
+/* Performance Optimizations */
+
+/* Isola rendering delle sezioni per migliori performance */
+.hero,
+.about,
+.experience,
+.projects,
+.skills,
+.contact {
+	contain: layout style;
+}
+
+/* Hint al browser per animazioni smooth */
+.tech-icon,
+.project-card,
+.timeline-item,
+.profile-image {
+	will-change: transform;
+}
+
+.profile-image:hover,
+.tech-icon:hover,
+.project-card:hover {
+	will-change: transform, box-shadow;
+}
+
+/* Ottimizza canvas neural network */
+.neural-network-canvas {
+	will-change: contents;
+}
+
+/* GPU acceleration per animazioni */
+@keyframes codeFloat {
+	0% {
+		transform: translate(0, 0) translateZ(0);
+		opacity: 0;
+	}
+	10% {
+		opacity: 0.8;
+	}
+	90% {
+		opacity: 0.8;
+	}
+	100% {
+		transform: translate(var(--float-x, 50px), var(--float-y, -100px)) translateZ(0);
+		opacity: 0;
+	}
+}
+
+/* Riduci repaint per elementi fissi */
+.navbar {
+	will-change: background-color;
+	transform: translateZ(0);
+}
+
+/* Ottimizza scroll */
+html {
+	scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+
+	html {
+		scroll-behavior: auto;
+	}
+}
