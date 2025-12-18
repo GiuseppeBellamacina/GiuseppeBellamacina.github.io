@@ -73,7 +73,12 @@
 <section id="home" class="hero">
 	<div class="hero-content">
 		<div class="profile-container">
-			<img src="/assets/profile.png" alt="Giuseppe Bellamacina" class="profile-image" />
+			<img
+				src="/assets/profile.png"
+				alt="Giuseppe Bellamacina"
+				class="profile-image"
+				fetchpriority="high"
+			/>
 		</div>
 		<h1 class="glitch" data-text="Giuseppe Bellamacina">Giuseppe Bellamacina</h1>
 		<p class="subtitle">
