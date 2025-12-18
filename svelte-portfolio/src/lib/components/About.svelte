@@ -117,6 +117,8 @@
 				return;
 			}
 
+			if (!ctx) return;
+
 			ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
 			time += 0.01;
 
