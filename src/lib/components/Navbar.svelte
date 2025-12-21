@@ -76,7 +76,7 @@
 	bind:this={navbarElement}
 	style:background={scrollY > 100 ? 'rgba(10, 14, 39, 0.98)' : 'rgba(10, 14, 39, 0.95)'}
 >
-	<div class="container" style="position: relative; z-index: 10;">
+	<div class="container" style="position: relative; z-index: 1002;">
 		<div class="nav-brand">Giuseppe Bellamacina</div>
 		<ul class="nav-menu" class:active={isMenuActive}>
 			<li><a href="#home" onclick={handleScroll}>Home</a></li>
