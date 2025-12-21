@@ -339,7 +339,7 @@
 			const randomDuration = 3 + Math.random() * 2;
 			icon.style.animationDelay = `${randomDelay}s`;
 			icon.style.animationDuration = `${randomDuration}s`;
-			
+
 			let isHovering = false;
 
 			icon.addEventListener('mouseenter', () => {
@@ -444,7 +444,7 @@
 				<div class="skills-grid">
 					{#each category.icons as icon}
 						<div class="tech-icon" data-title={icon.name}>
-							<img src="/assets/icons/{icon.icon}" alt={icon.name} />
+							<img src="/assets/icons/{icon.icon}" alt={icon.name} loading="lazy" />
 						</div>
 					{/each}
 				</div>
