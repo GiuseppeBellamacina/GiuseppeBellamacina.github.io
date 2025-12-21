@@ -4,6 +4,7 @@
 	let canvasElement: HTMLCanvasElement;
 	let aboutSection: HTMLElement;
 	let isVisible = false;
+	let isSmallScreen = false;
 
 	interface Neuron {
 		x: number;
@@ -25,6 +26,109 @@
 		progress: number;
 		speed: number;
 		trail: { x: number; y: number }[];
+	}
+
+	interface Particle {
+		x: number;
+		y: number;
+		vx: number;
+		vy: number;
+		radius: number;
+		opacity: number;
+		hue: number;
+	}
+
+	function createSimpleAnimation() {
+		if (!canvasElement || !aboutSection) return;
+
+		const ctx = canvasElement.getContext('2d');
+		if (!ctx) return;
+
+		function resizeCanvas() {
+			canvasElement.width = aboutSection.offsetWidth;
+			canvasElement.height = aboutSection.offsetHeight;
+		}
+		resizeCanvas();
+		window.addEventListener('resize', resizeCanvas);
+
+		const particles: Particle[] = [];
+		const particleCount = 25;
+
+		// Create particles
+		for (let i = 0; i < particleCount; i++) {
+			particles.push({
+				x: Math.random() * canvasElement.width,
+				y: Math.random() * canvasElement.height,
+				vx: (Math.random() - 0.5) * 0.5,
+				vy: (Math.random() - 0.5) * 0.5,
+				radius: Math.random() * 2 + 1,
+				opacity: Math.random() * 0.5 + 0.3,
+				hue: Math.random() * 60 + 160 // Cyan to green
+			});
+		}
+
+		function animate() {
+			if (!isVisible) {
+				requestAnimationFrame(animate);
+				return;
+			}
+
+			if (!ctx) return;
+
+			ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+
+			// Draw connections between nearby particles
+			particles.forEach((p1, i) => {
+				particles.slice(i + 1).forEach((p2) => {
+					const dx = p2.x - p1.x;
+					const dy = p2.y - p1.y;
+					const dist = Math.sqrt(dx * dx + dy * dy);
+
+					if (dist < 150) {
+						const opacity = (1 - dist / 150) * 0.2;
+						ctx.strokeStyle = `hsla(${(p1.hue + p2.hue) / 2}, 70%, 60%, ${opacity})`;
+						ctx.lineWidth = 0.5;
+						ctx.beginPath();
+						ctx.moveTo(p1.x, p1.y);
+						ctx.lineTo(p2.x, p2.y);
+						ctx.stroke();
+					}
+				});
+			});
+
+			// Update and draw particles
+			particles.forEach((particle) => {
+				particle.x += particle.vx;
+				particle.y += particle.vy;
+
+				// Bounce off walls
+				if (particle.x < 0 || particle.x > canvasElement.width) particle.vx *= -1;
+				if (particle.y < 0 || particle.y > canvasElement.height) particle.vy *= -1;
+
+				// Keep particles in bounds
+				particle.x = Math.max(0, Math.min(canvasElement.width, particle.x));
+				particle.y = Math.max(0, Math.min(canvasElement.height, particle.y));
+
+				// Draw particle
+				ctx.fillStyle = `hsla(${particle.hue}, 70%, 60%, ${particle.opacity})`;
+				ctx.shadowBlur = 10;
+				ctx.shadowColor = `hsla(${particle.hue}, 70%, 60%, ${particle.opacity})`;
+				ctx.beginPath();
+				ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+				ctx.fill();
+				ctx.shadowBlur = 0;
+			});
+
+			if (isVisible) {
+				requestAnimationFrame(animate);
+			}
+		}
+
+		animate();
+
+		return () => {
+			window.removeEventListener('resize', resizeCanvas);
+		};
 	}
 
 	function createNeuralNetwork() {
@@ -88,28 +192,38 @@
 
 		// Impulse system for forward propagation
 		const impulses: Impulse[] = [];
-		const maxImpulses = 50; // Limita numero impulsi contemporanei per performance
-		
+		const maxImpulses = 25; // Limita numero impulsi contemporanei per performance
+
 		setInterval(() => {
 			if (!isVisible || impulses.length > maxImpulses) return;
-			
-			// Create impulses from input layer (8% spawn rate)
+
+			// Create impulses from input layer - uno alla volta in modo più distribuito
 			const inputNeurons = neurons.filter((n) => n.layer === 0);
-			inputNeurons.forEach((neuron) => {
-				if (Math.random() < 0.08 && impulses.length < maxImpulses) {
+			// Seleziona casualmente 1-2 neuroni input
+			const selectedNeurons = inputNeurons
+				.sort(() => Math.random() - 0.5)
+				.slice(0, Math.random() > 0.7 ? 2 : 1);
+
+			selectedNeurons.forEach((neuron) => {
+				if (impulses.length < maxImpulses) {
+					// Seleziona solo 2-3 connessioni casuali invece di tutte
 					const nextConnections = connections.filter((c) => c.from === neuron);
-					nextConnections.forEach((conn) => {
+					const selectedConnections = nextConnections
+						.sort(() => Math.random() - 0.5)
+						.slice(0, Math.floor(Math.random() * 2) + 2); // 2-3 connessioni
+
+					selectedConnections.forEach((conn) => {
 						impulses.push({
 							from: conn.from,
 							to: conn.to,
 							progress: 0,
-							speed: 0.015 + Math.random() * 0.01,
+							speed: 0.012 + Math.random() * 0.008, // Velocità più uniforme
 							trail: []
 						});
 					});
 				}
 			});
-		}, 600);
+		}, 800); // Intervallo leggermente più lungo per effetto più fluido
 
 		function animate() {
 			if (!isVisible) {
@@ -169,17 +283,37 @@
 				if (impulse.progress >= 1) {
 					impulse.to.glow = 1;
 
-					// 25% chance to propagate to next layer
-					if (Math.random() < 0.25) {
-						const nextConnections = connections.filter((c) => c.from === impulse.to);
-						nextConnections.forEach((conn) => {
-							impulses.push({
-								from: conn.from,
-								to: conn.to,
-								progress: 0,
-								speed: 0.015 + Math.random() * 0.01,
-								trail: []
-							});
+					// Propagazione più controllata: 40-60% chance basata sul peso della connessione
+					const nextConnections = connections.filter((c) => c.from === impulse.to);
+
+					// Seleziona solo alcune connessioni in modo più intelligente
+					const propagationChance = 0.4 + impulse.to.layer * 0.1; // Aumenta probabilità nei layer più avanti
+					const numToPropagete = Math.floor(nextConnections.length * propagationChance);
+
+					if (numToPropagete > 0 && impulses.length < maxImpulses) {
+						// Seleziona le connessioni con peso maggiore (più probabilità)
+						const selectedConnections = nextConnections
+							.sort((a, b) => {
+								// Mix tra peso e casualità
+								const weightA = a.weight + Math.random() * 0.3;
+								const weightB = b.weight + Math.random() * 0.3;
+								return weightB - weightA;
+							})
+							.slice(0, numToPropagete);
+
+						// Aggiungi un piccolo delay per rendere la propagazione più naturale
+						selectedConnections.forEach((conn, idx) => {
+							setTimeout(() => {
+								if (impulses.length < maxImpulses) {
+									impulses.push({
+										from: conn.from,
+										to: conn.to,
+										progress: 0,
+										speed: 0.012 + Math.random() * 0.008,
+										trail: []
+									});
+								}
+							}, idx * 50); // 50ms di delay tra ogni impulso propagato
 						});
 					}
 
@@ -242,6 +376,13 @@
 	}
 
 	onMount(() => {
+		// Controlla la dimensione dello schermo
+		const checkScreenSize = () => {
+			isSmallScreen = window.innerWidth < 768;
+		};
+		checkScreenSize();
+		window.addEventListener('resize', checkScreenSize);
+
 		// IntersectionObserver per lazy loading
 		const observer = new IntersectionObserver(
 			(entries) => {
@@ -249,8 +390,14 @@
 					if (entry.isIntersecting) {
 						if (!isVisible) {
 							isVisible = true;
-							// Avvia subito senza delay
-							setTimeout(() => createNeuralNetwork(), 0);
+							// Avvia animazione appropriata in base alla dimensione dello schermo
+							setTimeout(() => {
+								if (isSmallScreen) {
+									createSimpleAnimation();
+								} else {
+									createNeuralNetwork();
+								}
+							}, 0);
 						} else {
 							// Riprendi animazioni
 							isVisible = true;
@@ -269,6 +416,7 @@
 		}
 
 		return () => {
+			window.removeEventListener('resize', checkScreenSize);
 			if (aboutSection) {
 				observer.unobserve(aboutSection);
 			}
@@ -305,9 +453,8 @@
 					<ul>
 						<li>
 							<strong
-								><a
-									href="https://github.com/GiuseppeBellamacina/Image-Enhancement"
-									target="_blank">Image Enhancement</a
+								><a href="https://github.com/GiuseppeBellamacina/Image-Enhancement" target="_blank"
+									>Image Enhancement</a
 								></strong
 							>
 							- Exploring advanced techniques for image quality improvement
