@@ -76,9 +76,9 @@
 	bind:this={navbarElement}
 	style:background={scrollY > 100 ? 'rgba(10, 14, 39, 0.98)' : 'rgba(10, 14, 39, 0.95)'}
 >
-	<div class="container" style="position: relative; z-index: 1002;">
+	<div class="container" style="position: relative;">
 		<div class="nav-brand">Giuseppe Bellamacina</div>
-		<ul class="nav-menu" class:active={isMenuActive}>
+		<ul class="nav-menu desktop-menu">
 			<li><a href="#home" onclick={handleScroll}>Home</a></li>
 			<li><a href="#about" onclick={handleScroll}>About</a></li>
 			<li><a href="#experience" onclick={handleScroll}>Experience</a></li>
@@ -100,3 +100,15 @@
 		</div>
 	</div>
 </nav>
+
+<!-- Menu mobile separato -->
+<div class="mobile-menu-wrapper" class:active={isMenuActive}>
+	<ul class="nav-menu mobile-menu">
+		<li><a href="#home" onclick={handleScroll}>Home</a></li>
+		<li><a href="#about" onclick={handleScroll}>About</a></li>
+		<li><a href="#experience" onclick={handleScroll}>Experience</a></li>
+		<li><a href="#projects" onclick={handleScroll}>Projects</a></li>
+		<li><a href="#skills" onclick={handleScroll}>Skills</a></li>
+		<li><a href="#contact" onclick={handleScroll}>Contact</a></li>
+	</ul>
+</div>
