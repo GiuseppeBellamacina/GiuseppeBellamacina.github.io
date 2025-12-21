@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 
 	let showSnow = $state(false);
-	let snowContainer: HTMLDivElement;
+	let snowContainer = $state<HTMLDivElement>();
 
 	function isChristmasPeriod(): boolean {
 		const now = new Date();
