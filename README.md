@@ -1,109 +1,79 @@
-# Giuseppe Bellamacina - Portfolio Website
+# 🚀 Giuseppe Bellamacina - Portfolio
 
-🚀 **Live Site:** [https://giuseppebellamacina.github.io](https://giuseppebellamacina.github.io)
+Portfolio personale costruito con **SvelteKit** e **Bun**.
 
-## About
+## 🛠️ Tech Stack
 
-This is my personal portfolio website showcasing my projects, skills, and experience in Computer Science, Artificial Intelligence, and Cybersecurity.
+- **Framework**: SvelteKit 2 con Svelte 5
+- **Runtime**: Bun
+- **Linguaggio**: TypeScript
+- **Styling**: CSS con animazioni custom
+- **Deploy**: GitHub Pages (CI/CD automatico)
 
-## Features
-
-- 🎨 Modern and responsive design
-- 🌗 Dark theme with gradient accents
-- 📱 Mobile-friendly navigation with optimized mobile layouts
-- ✨ Smooth animations and transitions
-- 🎭 Dynamic visual effects:
-  - Binary particle rain in Experience section
-  - Neural network grid background
-  - Animated gradient accents
-- 🚀 Fast loading and optimized performance
-- 📊 Showcases featured projects with interactive cards
-- 💻 Complete tech stack overview
-- ⭐ Dynamic GitHub stars integration via API
-- 🏆 Highlighted achievements (Hackathon Winner badge)
-- 🎮 Direct download links for games and applications
-- 🔗 Live demo links for web applications (Streamlit, YouTube)
-
-## Technologies Used
-
-- HTML5
-- CSS3 (with custom animations, keyframes, and responsive design)
-- Vanilla JavaScript (ES6+)
-- GitHub REST API v3 (for dynamic repository stars)
-- Font Awesome icons
-- GitHub Pages for hosting
-
-## Recent Updates (December 2025)
-
-### 🎨 UI/UX Improvements
-
-- Fixed project card button clickability issues
-- Optimized mobile layouts (neural network grid, responsive breakpoints)
-- Enhanced button alignment with dynamic content loading
-- Added loading states for API-driven content
-
-### 🌟 New Features
-
-- **Dynamic GitHub Stars**: Real-time repository star counts via GitHub API
-- **Enhanced Project Cards**: Direct download and demo links
-- **Achievement Badges**: Hackathon winner highlighting
-- **Visual Effects**: Increased binary particle density in Experience section
-- **Responsive Animations**: Optimized for all screen sizes
-
-### 📦 New Projects Added
-
-- **Guardian** (🏆 Hackathon Winner) - Devpost link
-- **SpazzApp** - Streamlit demo link
-- **Kagi ML Dev Challenge** - YouTube demo video
-- **The Legend of Turi** - Direct game download
-
-### 🏗️ Structure Updates
-
-- Reorganized project display order
-- Restructured Experience timeline (work/education separation)
-- Added Master's Degree in Machine Learning and Artificial Intelligence
-- Improved chronological ordering of timeline events
-
-## Sections
-
-1. **Home** - Hero section with introduction
-2. **About** - Personal background and current projects
-3. **Projects** - Featured portfolio projects with:
-   - Interactive project cards
-   - GitHub repository links with live star counts
-   - Download buttons for standalone applications
-   - Demo links for web applications
-   - Special badges for achievements
-4. **Experience** - Professional timeline with:
-   - Work experience (left side)
-   - Educational background (right side)
-   - Chronologically ordered events
-   - Binary particle animation effects
-5. **Skills** - Technical skills and tools
-6. **Contact** - Social media links
-
-## Local Development
-
-To run this website locally:
-
-1. Clone the repository
+## 📦 Installazione & Sviluppo
 
 ```bash
-git clone https://github.com/GiuseppeBellamacina/GiuseppeBellamacina.github.io.git
+# Installa le dipendenze
+bun install
+
+# Avvia il dev server
+bun run dev
+
+# Build per produzione
+bun run build
+
+# Preview della build
+bun run preview
 ```
 
-2. Open `index.html` in your browser
+## 🎨 Formattazione
 
-No build process or dependencies required!
+```bash
+# Formatta tutto il codice
+bun run format
 
-## Contact
+# Controlla formattazione
+bun run format:check
+```
 
-- GitHub: [@GiuseppeBellamacina](https://github.com/GiuseppeBellamacina)
-- LinkedIn: [Giuseppe Bellamacina](https://www.linkedin.com/in/giuseppe-bellamacina-739b03204/)
-- Instagram: [@giuseppe_bellamacina](https://www.instagram.com/giuseppe_bellamacina/)
+## 🚀 Deploy
 
----
+Il sito viene deployato automaticamente su GitHub Pages quando pusshi su `main`.
 
-⭐ If you like this portfolio, feel free to star the repository!
+### Setup GitHub Pages:
 
-© 2025 Giuseppe Bellamacina. All rights reserved.
+1. Vai su **Settings** > **Pages**
+2. Source: **GitHub Actions**
+3. Il workflow `.github/workflows/deploy.yml` si occupa di tutto
+
+## 📂 Struttura
+
+```
+svelte-portfolio/
+├── src/
+│   ├── lib/
+│   │   └── components/     # Componenti Svelte
+│   ├── routes/
+│   │   ├── +page.svelte   # Pagina principale
+│   │   ├── +layout.svelte # Layout globale
+│   │   └── +layout.ts     # Config SSR
+│   ├── app.css            # Stili globali
+│   └── app.html           # Template HTML
+├── static/
+│   └── assets/            # Immagini e icone
+└── svelte.config.js       # Config adapter-static
+```
+
+## ✨ Features
+
+- 🎭 Matrix rain effect nella navbar
+- ⌨️ Typing animation nel hero
+- 🧠 Neural network canvas animato
+- ⏱️ Timeline con binary particles
+- 🎨 Skills con space effects (shooting stars, constellations)
+- 🌈 Rainbow glow su icone tech random
+- 📱 Completamente responsive
+
+## 📝 License
+
+© 2025 Giuseppe Bellamacina
