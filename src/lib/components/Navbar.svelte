@@ -79,14 +79,21 @@
 	<div class="container" style="position: relative; z-index: 10;">
 		<div class="nav-brand">Giuseppe Bellamacina</div>
 		<ul class="nav-menu" class:active={isMenuActive}>
-			<li><a href="#home" on:click={handleScroll}>Home</a></li>
-			<li><a href="#about" on:click={handleScroll}>About</a></li>
-			<li><a href="#experience" on:click={handleScroll}>Experience</a></li>
-			<li><a href="#projects" on:click={handleScroll}>Projects</a></li>
-			<li><a href="#skills" on:click={handleScroll}>Skills</a></li>
-			<li><a href="#contact" on:click={handleScroll}>Contact</a></li>
+			<li><a href="#home" onclick={handleScroll}>Home</a></li>
+			<li><a href="#about" onclick={handleScroll}>About</a></li>
+			<li><a href="#experience" onclick={handleScroll}>Experience</a></li>
+			<li><a href="#projects" onclick={handleScroll}>Projects</a></li>
+			<li><a href="#skills" onclick={handleScroll}>Skills</a></li>
+			<li><a href="#contact" onclick={handleScroll}>Contact</a></li>
 		</ul>
-		<div class="hamburger" class:active={isMenuActive} on:click={toggleMenu} role="button" tabindex="0">
+		<div
+			class="hamburger"
+			class:active={isMenuActive}
+			onclick={toggleMenu}
+			onkeydown={(e) => e.key === 'Enter' && toggleMenu()}
+			role="button"
+			tabindex="0"
+		>
 			<span></span>
 			<span></span>
 			<span></span>

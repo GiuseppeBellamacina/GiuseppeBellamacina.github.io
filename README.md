@@ -1,79 +1,194 @@
-# 🚀 Giuseppe Bellamacina - Portfolio
+# Giuseppe Bellamacina - Portfolio
 
-Portfolio personale costruito con **SvelteKit** e **Bun**.
+[![Deploy to GitHub Pages](https://github.com/GiuseppeBellamacina/GiuseppeBellamacina.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/GiuseppeBellamacina/GiuseppeBellamacina.github.io/actions/workflows/deploy.yml)
 
-## 🛠️ Tech Stack
+A modern, cyberpunk-themed portfolio website showcasing AI/ML engineering projects and skills with immersive visual effects.
 
-- **Framework**: SvelteKit 2 con Svelte 5
-- **Runtime**: Bun
-- **Linguaggio**: TypeScript
-- **Styling**: CSS con animazioni custom
-- **Deploy**: GitHub Pages (CI/CD automatico)
-
-## 📦 Installazione & Sviluppo
-
-```bash
-# Installa le dipendenze
-bun install
-
-# Avvia il dev server
-bun run dev
-
-# Build per produzione
-bun run build
-
-# Preview della build
-bun run preview
-```
-
-## 🎨 Formattazione
-
-```bash
-# Formatta tutto il codice
-bun run format
-
-# Controlla formattazione
-bun run format:check
-```
-
-## 🚀 Deploy
-
-Il sito viene deployato automaticamente su GitHub Pages quando pusshi su `main`.
-
-### Setup GitHub Pages:
-
-1. Vai su **Settings** > **Pages**
-2. Source: **GitHub Actions**
-3. Il workflow `.github/workflows/deploy.yml` si occupa di tutto
-
-## 📂 Struttura
-
-```
-svelte-portfolio/
-├── src/
-│   ├── lib/
-│   │   └── components/     # Componenti Svelte
-│   ├── routes/
-│   │   ├── +page.svelte   # Pagina principale
-│   │   ├── +layout.svelte # Layout globale
-│   │   └── +layout.ts     # Config SSR
-│   ├── app.css            # Stili globali
-│   └── app.html           # Template HTML
-├── static/
-│   └── assets/            # Immagini e icone
-└── svelte.config.js       # Config adapter-static
-```
+🌐 **Live Demo**: [giuseppebellamacina.github.io](https://giuseppebellamacina.github.io)
 
 ## ✨ Features
 
-- 🎭 Matrix rain effect nella navbar
-- ⌨️ Typing animation nel hero
-- 🧠 Neural network canvas animato
-- ⏱️ Timeline con binary particles
-- 🎨 Skills con space effects (shooting stars, constellations)
-- 🌈 Rainbow glow su icone tech random
-- 📱 Completamente responsive
+### 🎨 Visual Effects
 
-## 📝 License
+- **Matrix Rain Animation** - Dynamic character rain effect on the navigation bar
+- **Neural Network Visualization** - Interactive canvas-based feedforward network with animated impulse propagation
+- **Binary Particle System** - Animated binary digits with neon glow effects
+- **Shooting Stars & Constellations** - Space-themed background animations
+- **Glitch Effects** - Cyberpunk-style text animations and hover effects
 
-© 2025 Giuseppe Bellamacina
+### 🚀 Performance
+
+- **Lazy Loading** - All heavy visual effects use IntersectionObserver for viewport-based rendering
+- **GPU Acceleration** - CSS animations optimized with `will-change` and hardware acceleration
+- **Pause When Offscreen** - Animations automatically pause when not visible to conserve resources
+- **Optimized Rendering** - Canvas effects capped at optimal frame rates
+
+### 📱 Responsive Design
+
+- **Mobile-First Approach** - Fully responsive across all devices
+- **Futuristic Hamburger Menu** - Cyberpunk-styled mobile navigation with gradient effects
+- **Touch-Optimized** - Smooth interactions on mobile devices
+- **Accessibility** - ARIA labels, keyboard navigation support, and semantic HTML
+
+## 🛠️ Tech Stack
+
+- **[Svelte 5](https://svelte.dev/)** - Next-generation reactive framework with latest runes API
+- **[SvelteKit](https://kit.svelte.dev/)** - Full-stack framework with SSR capabilities
+- **[TypeScript](https://www.typescriptlang.org/)** - Type-safe development
+- **[Bun](https://bun.sh/)** - Ultra-fast JavaScript runtime and package manager
+- **[Vite](https://vitejs.dev/)** - Lightning-fast build tool
+- **GitHub Actions** - Automated deployment pipeline
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- [Bun](https://bun.sh/) installed on your system
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/GiuseppeBellamacina/GiuseppeBellamacina.github.io.git
+
+# Navigate to project directory
+cd GiuseppeBellamacina.github.io
+
+# Install dependencies
+bun install
+```
+
+### Development
+
+```bash
+# Start development server
+bun run dev
+
+# Open http://localhost:5173 in your browser
+```
+
+### Build
+
+```bash
+# Create production build
+bun run build
+
+# Preview production build
+bun run preview
+```
+
+### Code Quality
+
+```bash
+# Type checking
+bun run check
+
+# Type checking in watch mode
+bun run check:watch
+
+# Format code
+bun run format
+
+# Check formatting
+bun run format:check
+```
+
+## 📂 Project Structure
+
+```
+├── .github/
+│   └── workflows/
+│       └── deploy.yml          # GitHub Pages deployment
+├── src/
+│   ├── lib/
+│   │   ├── components/
+│   │   │   ├── Navbar.svelte   # Navigation with matrix rain
+│   │   │   ├── Hero.svelte     # Landing section with typing effect
+│   │   │   ├── About.svelte    # Neural network visualization
+│   │   │   ├── Experience.svelte # Timeline with binary particles
+│   │   │   ├── Projects.svelte # GitHub-integrated project showcase
+│   │   │   ├── Skills.svelte   # Tech stack with space theme
+│   │   │   ├── Contact.svelte  # Contact form and links
+│   │   │   └── Footer.svelte   # Footer section
+│   │   ├── assets/             # Images and icons
+│   │   └── performance.css     # Performance optimization utilities
+│   ├── routes/
+│   │   ├── +layout.svelte      # Root layout
+│   │   ├── +layout.ts          # Layout configuration
+│   │   └── +page.svelte        # Homepage
+│   ├── app.css                 # Global styles and animations
+│   └── app.html                # HTML template
+├── static/
+│   └── assets/                 # Static assets
+├── svelte.config.js            # SvelteKit configuration
+├── vite.config.ts              # Vite configuration
+└── tsconfig.json               # TypeScript configuration
+```
+
+## 🎯 Key Components
+
+### Navbar
+
+- Dynamic matrix rain effect with customizable character pool
+- Smooth scroll navigation with active section highlighting
+- Responsive hamburger menu with futuristic animations
+- Backdrop blur and gradient effects
+
+### Hero
+
+- Animated typing effect with multiple text variations
+- Glitch-style title animation
+- CSS-based cursor blink
+- Profile image with hover effects
+
+### About
+
+- Canvas-based neural network with 5-layer architecture
+- Color-coded impulse propagation (green → cyan → magenta)
+- Trail effects for visual depth
+- Real-time connection rendering
+
+### Projects
+
+- GitHub API integration for live star counts
+- Scroll-triggered fade-in animations
+- External links to demos and repositories
+- Technology tags for each project
+
+### Skills
+
+- Shooting stars background effect
+- Connected constellation patterns
+- Rainbow color cycling on select icons
+- Staggered fade-in animations
+
+### Experience
+
+- Timeline layout with alternating cards
+- Binary particle background with neon glow
+- Gradient text effects on dates
+- Responsive card positioning
+
+## 🌟 Performance Optimizations
+
+- **IntersectionObserver**: All canvas-based effects only render when visible
+- **RequestAnimationFrame**: Optimized animation loops
+- **CSS Containment**: Isolated rendering contexts
+- **Debounced Scroll**: Efficient scroll event handling
+- **Lazy GitHub API**: Star counts fetched only when needed
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 📧 Contact
+
+Giuseppe Bellamacina
+
+- GitHub: [@GiuseppeBellamacina](https://github.com/GiuseppeBellamacina)
+- Email: [g.bellamacina@gmail.com](mailto:g.bellamacina@gmail.com)
+- LinkedIn: [Giuseppe Bellamacina](https://www.linkedin.com/in/giuseppe-bellamacina/)
+
+---
+
+Made with ❤️ using Svelte 5 and modern web technologies
