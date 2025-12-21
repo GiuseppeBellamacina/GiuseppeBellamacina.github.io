@@ -39,26 +39,19 @@
 			if (!isNavbarVisible) return;
 			// 70% spawn rate
 			if (Math.random() > 0.3) {
-				const char = document.createElement('div');
-				char.textContent = characters[Math.floor(Math.random() * characters.length)];
-				char.style.cssText = `
-					position: absolute;
-					top: 0;
-					left: ${Math.random() * 100}%;
-					color: var(--primary-color);
-					font-size: ${10 + Math.random() * 6}px;
-					opacity: ${0.2 + Math.random() * 0.3};
-					pointer-events: none;
-					animation: matrixFall ${1.5 + Math.random()}s linear forwards;
-					z-index: 1;
-				`;
-				navbarElement.appendChild(char);
+				const rain = document.createElement('span');
+				rain.textContent = characters[Math.floor(Math.random() * characters.length)];
+				rain.style.position = 'absolute';
+				rain.style.left = Math.random() * 100 + '%';
+				rain.style.top = '0';
+				rain.style.color = 'var(--primary-color)';
+				rain.style.fontSize = Math.random() * 6 + 10 + 'px';
+				rain.style.opacity = (Math.random() * 0.3 + 0.2).toString();
+				rain.style.pointerEvents = 'none';
+				rain.style.animation = `matrixFall ${Math.random() * 1 + 1.5}s linear forwards`;
+				navbarElement.appendChild(rain);
 
-				setTimeout(() => {
-					if (char.parentNode) {
-						char.parentNode.removeChild(char);
-					}
-				}, 2500);
+				setTimeout(() => rain.remove(), 2500);
 			}
 		}, 50);
 	}
@@ -83,61 +76,20 @@
 	bind:this={navbarElement}
 	style:background={scrollY > 100 ? 'rgba(10, 14, 39, 0.98)' : 'rgba(10, 14, 39, 0.95)'}
 >
-	<div class="container">
+	<div class="container" style="position: relative; z-index: 10;">
 		<div class="nav-brand">Giuseppe Bellamacina</div>
 		<ul class="nav-menu" class:active={isMenuActive}>
-			<li><a href="#home" onclick={handleScroll}>Home</a></li>
-			<li><a href="#about" onclick={handleScroll}>About</a></li>
-			<li><a href="#experience" onclick={handleScroll}>Experience</a></li>
-			<li><a href="#projects" onclick={handleScroll}>Projects</a></li>
-			<li><a href="#skills" onclick={handleScroll}>Skills</a></li>
-			<li><a href="#contact" onclick={handleScroll}>Contact</a></li>
+			<li><a href="#home" on:click={handleScroll}>Home</a></li>
+			<li><a href="#about" on:click={handleScroll}>About</a></li>
+			<li><a href="#experience" on:click={handleScroll}>Experience</a></li>
+			<li><a href="#projects" on:click={handleScroll}>Projects</a></li>
+			<li><a href="#skills" on:click={handleScroll}>Skills</a></li>
+			<li><a href="#contact" on:click={handleScroll}>Contact</a></li>
 		</ul>
-		<button
-			class="hamburger"
-			class:active={isMenuActive}
-			onclick={toggleMenu}
-			aria-label="Toggle navigation menu"
-			type="button"
-		>
+		<div class="hamburger" class:active={isMenuActive} on:click={toggleMenu} role="button" tabindex="0">
 			<span></span>
 			<span></span>
 			<span></span>
-		</button>
+		</div>
 	</div>
 </nav>
-
-<style>
-	/* Mobile menu active state */
-	.nav-menu.active {
-		left: 0;
-	}
-
-	/* Hamburger button reset */
-	button.hamburger {
-		background: none;
-		border: none;
-		padding: 0;
-		cursor: pointer;
-		display: none;
-		flex-direction: column;
-	}
-
-	.hamburger.active span:nth-child(1) {
-		transform: rotate(-45deg) translate(-5px, 6px);
-	}
-
-	.hamburger.active span:nth-child(2) {
-		opacity: 0;
-	}
-
-	.hamburger.active span:nth-child(3) {
-		transform: rotate(45deg) translate(-5px, -6px);
-	}
-
-	@media (max-width: 768px) {
-		button.hamburger {
-			display: flex;
-		}
-	}
-</style>

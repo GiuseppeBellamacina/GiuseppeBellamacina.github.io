@@ -155,61 +155,25 @@
 		}
 	}
 
-	// Floating code snippets
-	function createFloatingCode() {
-		if (!projectsSection) return;
+	// Fade-in animation for project cards
+	function setupProjectCardAnimations() {
+		const cards = projectsSection?.querySelectorAll('.project-card');
+		if (!cards) return;
 
-		const codeSnippets = [
-			{ text: 'model = ResNet50()', color: 'rgba(0, 217, 255, 0.9)' },
-			{ text: 'from langchain import Agent', color: 'rgba(255, 0, 255, 0.9)' },
-			{ text: 'graph.query(cypher)', color: 'rgba(0, 255, 157, 0.9)' },
-			{ text: 'async def predict(x):', color: 'rgba(0, 217, 255, 0.9)' },
-			{ text: 'nn.Conv2d(64, 128)', color: 'rgba(255, 0, 255, 0.9)' },
-			{ text: 'GraphRAG.retrieve()', color: 'rgba(0, 255, 157, 0.9)' },
-			{ text: 'torch.optim.Adam()', color: 'rgba(0, 217, 255, 0.9)' },
-			{ text: 'class MultiAgent:', color: 'rgba(255, 0, 255, 0.9)' },
-			{ text: 'neo4j.connect(uri)', color: 'rgba(0, 255, 157, 0.9)' },
-			{ text: 'loss.backward()', color: 'rgba(0, 217, 255, 0.9)' },
-			{ text: 'embeddings = model()', color: 'rgba(255, 0, 255, 0.9)' },
-			{ text: 'agent.run(task)', color: 'rgba(0, 255, 157, 0.9)' },
-			{ text: 'df.predict_proba(X)', color: 'rgba(0, 217, 255, 0.9)' },
-			{ text: 'vectorstore.search()', color: 'rgba(255, 0, 255, 0.9)' },
-			{ text: 'model.compile(loss)', color: 'rgba(0, 217, 255, 0.9)' },
-			{ text: '@dataclass\nclass Node:', color: 'rgba(0, 255, 157, 0.9)' },
-			{ text: 'pipeline.fit(X, y)', color: 'rgba(0, 217, 255, 0.9)' },
-			{ text: 'response = llm.call()', color: 'rgba(255, 0, 255, 0.9)' },
-			{ text: 'scaler.transform(data)', color: 'rgba(0, 217, 255, 0.9)' },
-			{ text: 'optimizer.step()', color: 'rgba(255, 0, 255, 0.9)' }
-		];
-
-		setInterval(() => {
-			// 50% spawn rate
-			if (Math.random() > 0.5) {
-				const snippet = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
-				const code = document.createElement('div');
-				code.textContent = snippet.text;
-				code.style.cssText = `
-					position: absolute;
-					top: ${Math.random() * 100}%;
-					left: ${Math.random() * 100}%;
-					color: ${snippet.color};
-					font-size: ${11 + Math.random() * 5}px;
-					opacity: 0;
-					pointer-events: none;
-					font-family: 'Courier New', monospace;
-					white-space: pre;
-					animation: codeFloat ${5 + Math.random() * 3}s linear forwards;
-					z-index: 1;
-				`;
-				projectsSection.appendChild(code);
-
-				setTimeout(() => {
-					if (code.parentNode) {
-						code.parentNode.removeChild(code);
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('visible');
 					}
-				}, 8000);
-			}
-		}, 600);
+				});
+			},
+			{ threshold: 0.1, rootMargin: '0px 0px -100px 0px' }
+		);
+
+		cards.forEach((card) => {
+			observer.observe(card);
+		});
 	}
 
 	onMount(() => {
@@ -220,7 +184,7 @@
 					if (entry.isIntersecting && !isVisible) {
 						isVisible = true;
 						fetchGitHubStars();
-						createFloatingCode();
+						setupProjectCardAnimations();
 					}
 				});
 			},

@@ -88,7 +88,7 @@
 
 		// Impulse system for forward propagation
 		const impulses: Impulse[] = [];
-		const maxImpulses = 30; // Limita numero impulsi contemporanei
+		const maxImpulses = 50; // Limita numero impulsi contemporanei per performance
 		
 		setInterval(() => {
 			if (!isVisible || impulses.length > maxImpulses) return;
@@ -141,9 +141,9 @@
 				const x = impulse.from.x + (impulse.to.x - impulse.from.x) * impulse.progress;
 				const y = impulse.from.y + (impulse.to.y - impulse.from.y) * impulse.progress;
 
-				// Add to trail (ridotto a 3 per performance)
+				// Add to trail (5 punti come l'originale)
 				impulse.trail.push({ x, y });
-				if (impulse.trail.length > 3) {
+				if (impulse.trail.length > 5) {
 					impulse.trail.shift();
 				}
 

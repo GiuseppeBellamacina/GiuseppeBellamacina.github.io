@@ -2,7 +2,6 @@
 	import { onMount } from 'svelte';
 
 	let typingText = $state('');
-	let showCursor = $state(true);
 
 	const texts = [
 		'AI/ML Engineer',
@@ -27,7 +26,8 @@
 
 		if (isPaused) {
 			isPaused = false;
-			setTimeout(typeEffect, 2000);
+			isDeleting = true;
+			setTimeout(typeEffect, 1200);
 			return;
 		}
 
@@ -38,9 +38,9 @@
 			if (charIndex === 0) {
 				isDeleting = false;
 				textIndex = (textIndex + 1) % texts.length;
-				setTimeout(typeEffect, 500);
+				setTimeout(typeEffect, 300);
 			} else {
-				setTimeout(typeEffect, 30);
+				setTimeout(typeEffect, 25);
 			}
 		} else {
 			typingText = currentText.substring(0, charIndex + 1);
@@ -48,25 +48,15 @@
 
 			if (charIndex === currentText.length) {
 				isPaused = true;
-				isDeleting = true;
-				setTimeout(typeEffect, 2000);
+				setTimeout(typeEffect, 1200);
 			} else {
-				setTimeout(typeEffect, 80);
+				setTimeout(typeEffect, 70);
 			}
 		}
 	}
 
 	onMount(() => {
 		setTimeout(typeEffect, 1000);
-
-		// Cursor blinking
-		const cursorInterval = setInterval(() => {
-			showCursor = !showCursor;
-		}, 400);
-
-		return () => {
-			clearInterval(cursorInterval);
-		};
 	});
 </script>
 
@@ -82,10 +72,7 @@
 		</div>
 		<h1 class="glitch" data-text="Giuseppe Bellamacina">Giuseppe Bellamacina</h1>
 		<p class="subtitle">
-			<span id="typing-text">{typingText}</span><span
-				class="typing-cursor"
-				style:opacity={showCursor ? 1 : 0}>|</span
-			>
+			<span id="typing-text">{typingText}</span><span class="typing-cursor">|</span>
 		</p>
 		<div class="hero-buttons">
 			<a

@@ -102,17 +102,21 @@
 			if (Math.random() > 0.15) {
 				const particle = document.createElement('div');
 				particle.textContent = Math.random() > 0.5 ? '0' : '1';
+				const colors = ['#00d9ff', '#ff00ff', '#00ff9d'];
+				const color = colors[Math.floor(Math.random() * colors.length)];
 				particle.style.cssText = `
 					position: absolute;
 					top: ${Math.random() * 100}%;
 					left: ${Math.random() * 100}%;
-					color: ${['#00ffff', '#ff00ff', '#00ff9d'][Math.floor(Math.random() * 3)]};
+					color: ${color};
 					font-size: ${10 + Math.random() * 8}px;
-					opacity: ${0.3 + Math.random() * 0.5};
+					font-weight: bold;
+					opacity: 0;
 					pointer-events: none;
-					animation: binaryFloat ${4 + Math.random() * 3}s linear forwards;
+					animation: binaryFloat ${4 + Math.random() * 3}s ease-out forwards;
 					z-index: 1;
-					font-family: monospace;
+					font-family: 'Courier New', monospace;
+					text-shadow: 0 0 5px ${color};
 				`;
 				experienceSection.appendChild(particle);
 

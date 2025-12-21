@@ -95,7 +95,7 @@ body::before {
 	z-index: 1000;
 	padding: 1rem 0;
 	box-shadow: 0 2px 10px rgba(0, 217, 255, 0.1);
-	overflow: hidden;
+	overflow: visible;
 }
 
 .navbar .container {
@@ -145,6 +145,9 @@ body::before {
 	display: none;
 	flex-direction: column;
 	cursor: pointer;
+	background: none;
+	border: none;
+	padding: 0;
 }
 
 .hamburger span {
@@ -153,6 +156,18 @@ body::before {
 	background: var(--primary-color);
 	margin: 3px 0;
 	transition: 0.3s;
+}
+
+.hamburger.active span:nth-child(1) {
+	transform: rotate(-45deg) translate(-6px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+	opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+	transform: rotate(45deg) translate(-6px, -6px);
 }
 
 /* Hero Section */
@@ -468,17 +483,17 @@ body::before {
 
 @keyframes matrixFall {
 	0% {
-		transform: translateY(0) translateZ(0);
+		transform: translateY(0);
 		opacity: 0;
 	}
 	10% {
-		opacity: 1;
+		opacity: 0.3;
 	}
 	90% {
-		opacity: 1;
+		opacity: 0.3;
 	}
 	100% {
-		transform: translateY(80px) translateZ(0);
+		transform: translateY(60px);
 		opacity: 0;
 	}
 }
@@ -1006,11 +1021,16 @@ body::before {
 
 .timeline-date {
 	color: var(--primary-color);
-	font-weight: 600;
+	font-weight: bold;
 	font-size: 0.9rem;
 	margin-bottom: 0.5rem;
 	text-transform: uppercase;
 	letter-spacing: 1px;
+	display: inline-block;
+	padding: 0.3rem 0.8rem;
+	background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(255, 0, 255, 0.1));
+	border-radius: 5px;
+	border: 1px solid rgba(0, 217, 255, 0.3);
 }
 
 .timeline-content h3 {
@@ -1201,12 +1221,22 @@ body::before {
 	background: var(--bg-card);
 	border-radius: 15px;
 	padding: 2rem;
-	transition: all 0.4s;
+	opacity: 0;
+	transform: translateY(30px);
+	transition:
+		opacity 0.6s ease,
+		transform 0.6s ease,
+		all 0.4s;
 	border: 2px solid rgba(0, 217, 255, 0.2);
 	position: relative;
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
+}
+
+.project-card.visible {
+	opacity: 1;
+	transform: translateY(0);
 }
 
 .download-btn {
@@ -1565,6 +1595,16 @@ body::before {
 	margin-bottom: 3rem;
 	position: relative;
 	z-index: 1;
+	opacity: 0;
+	transform: translateY(30px);
+	transition:
+		opacity 0.6s ease,
+		transform 0.6s ease;
+}
+
+.skills-category.visible {
+	opacity: 1;
+	transform: translateY(0);
 }
 
 .skills-category h3 {
@@ -1614,6 +1654,13 @@ body::before {
 	cursor: pointer;
 	overflow: hidden;
 	animation: gentleFloat 4s ease-in-out infinite;
+	opacity: 0;
+	transform: translateY(20px) scale(0.8);
+}
+
+.tech-icon.visible {
+	opacity: 1;
+	transform: translateY(0) scale(1);
 }
 
 @keyframes gentleFloat {
@@ -1908,6 +1955,18 @@ body::before {
 		text-align: center;
 		transition: 0.3s;
 		padding: 2rem 0;
+		z-index: 999;
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+	}
+
+	.nav-menu li {
+		margin: 1rem 0;
+	}
+
+	.nav-menu a {
+		font-size: 1.2rem;
+		padding: 0.5rem 1rem;
+		display: block;
 	}
 
 	.nav-menu.active {
@@ -1926,6 +1985,12 @@ body::before {
 	.hero-buttons {
 		flex-direction: column;
 		align-items: center;
+		gap: 1rem;
+		margin-bottom: 3rem;
+	}
+
+	.scroll-indicator {
+		display: none;
 	}
 
 	.projects-grid {
@@ -1964,6 +2029,19 @@ body::before {
 
 	.subtitle {
 		font-size: 1.2rem;
+	}
+
+	.hero-buttons {
+		gap: 0.8rem;
+		margin-bottom: 2rem;
+	}
+
+	.social-links {
+		margin-bottom: 2rem;
+	}
+
+	.scroll-indicator {
+		display: none;
 	}
 
 	.nav-brand {

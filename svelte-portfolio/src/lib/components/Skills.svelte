@@ -364,6 +364,45 @@
 		});
 	}
 
+	// Setup fade-in animations for skills categories and icons
+	function setupSkillsAnimations() {
+		// Fade-in for categories
+		const categories = document.querySelectorAll('.skills-category') as NodeListOf<HTMLElement>;
+		const categoryObserver = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('visible');
+					}
+				});
+			},
+			{ threshold: 0.1, rootMargin: '0px 0px -100px 0px' }
+		);
+
+		categories.forEach((category) => {
+			categoryObserver.observe(category);
+		});
+
+		// Fade-in for tech icons with stagger
+		const icons = document.querySelectorAll('.tech-icon') as NodeListOf<HTMLElement>;
+		const iconObserver = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry, index) => {
+					if (entry.isIntersecting) {
+						setTimeout(() => {
+							entry.target.classList.add('visible');
+						}, index * 50); // 50ms stagger delay
+					}
+				});
+			},
+			{ threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+		);
+
+		icons.forEach((icon) => {
+			iconObserver.observe(icon);
+		});
+	}
+
 	onMount(() => {
 		const observer = new IntersectionObserver(
 			(entries) => {
@@ -375,7 +414,8 @@
 						setTimeout(() => {
 							addRandomRainbowEffect();
 							addParallaxEffect();
-						}, 500);
+							setupSkillsAnimations();
+						}, 100);
 					}
 				});
 			},
