@@ -95,7 +95,7 @@ body::before {
 	z-index: 1000;
 	padding: 1rem 0;
 	box-shadow: 0 2px 10px rgba(0, 217, 255, 0.1);
-	overflow: visible;
+	overflow: hidden;
 }
 
 .navbar .container {
