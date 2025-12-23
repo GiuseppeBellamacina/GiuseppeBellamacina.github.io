@@ -35,6 +35,14 @@
 			}
 		},
 		{
+			icon: '📸',
+			title: 'Image Enhancement',
+			description:
+				'Deep Learning models for image restoration and enhancement with multiple degradation types.',
+			techTags: ['PyTorch', 'UNet', 'GAN', 'Computer Vision'],
+			githubUrl: 'https://github.com/GiuseppeBellamacina/Image-Enhancement'
+		},
+		{
 			icon: '🖼️',
 			title: 'Steganography WebApp',
 			description: 'Hide data inside images with this web application.',
@@ -135,9 +143,23 @@
 
 	// Fetch GitHub stars
 	async function fetchGitHubStars() {
-		for (let i = 0; i < projects.length; i++) {
-			const project = projects[i];
+		// Crea un array di promise per fetch paralleli
+		const fetchPromises = projects.map(async (project, index) => {
 			try {
+				// Controllo cache (1 ora di validità)
+				const cacheKey = `github_stars_${project.githubUrl}`;
+				const cached = localStorage.getItem(cacheKey);
+				if (cached) {
+					const { stars, timestamp } = JSON.parse(cached);
+					if (Date.now() - timestamp < 3600000) {
+						// 1 ora
+						project.stars = stars;
+						project.starsLoaded = true;
+						projects = [...projects];
+						return;
+					}
+				}
+
 				const match = project.githubUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
 				if (match) {
 					const [, owner, repo] = match;
@@ -146,13 +168,26 @@
 						const data = await response.json();
 						project.stars = data.stargazers_count;
 						project.starsLoaded = true;
-						projects = [...projects]; // Trigger reactivity
+
+						// Salva in cache
+						localStorage.setItem(
+							cacheKey,
+							JSON.stringify({
+								stars: data.stargazers_count,
+								timestamp: Date.now()
+							})
+						);
+
+						projects = [...projects]; // Trigger reactivity progressivo
 					}
 				}
 			} catch (error) {
 				console.error(`Failed to fetch stars for ${project.title}:`, error);
 			}
-		}
+		});
+
+		// Esegui tutte le richieste in parallelo
+		await Promise.all(fetchPromises);
 	}
 
 	// Fade-in animation for project cards
