@@ -11,6 +11,11 @@ A modern, cyberpunk-themed portfolio website showcasing AI/ML engineering projec
 ### 🎨 Visual Effects
 
 - **Matrix Rain Animation** - Dynamic character rain effect on the navigation bar
+- **Seasonal Effects System** - Automatic themed animations based on calendar periods
+  - 🎄 **Christmas Snow** (Dec 1 - Jan 6) - Falling snowflakes with natural physics
+  - 🎃 **Halloween** (Oct 20-31) - Spooky pumpkins, ghosts, and spiders
+  - 🌟 **Summer Fireflies** (Jun-Aug) - Glowing fireflies with smooth fade animations
+  - 🎆 **New Year** (Dec 31 - Jan 2) - Confetti and firework explosions with rotation
 - **Neural Network Visualization** - Interactive canvas-based feedforward network with animated impulse propagation
 - **Binary Particle System** - Animated binary digits with neon glow effects
 - **Shooting Stars & Constellations** - Space-themed background animations
@@ -102,6 +107,11 @@ bun run format:check
 ├── src/
 │   ├── lib/
 │   │   ├── components/
+│   │   │   ├── seasonal/
+│   │   │   │   ├── SnowEffect.svelte        # Christmas snow animation
+│   │   │   │   ├── HalloweenEffect.svelte   # Halloween decorations
+│   │   │   │   ├── SummerEffect.svelte      # Fireflies with population control
+│   │   │   │   └── NewYearEffect.svelte     # Confetti and fireworks
 │   │   │   ├── Navbar.svelte   # Navigation with matrix rain
 │   │   │   ├── Hero.svelte     # Landing section with typing effect
 │   │   │   ├── About.svelte    # Neural network visualization
@@ -126,6 +136,22 @@ bun run format:check
 ```
 
 ## 🎯 Key Components
+
+### Seasonal Effects
+
+Automatic themed animations that activate based on the current date:
+
+- **Snow Effect**: Falling snowflakes with adjustable density based on screen size
+- **Halloween Effect**: Falling pumpkins, ghosts, and spiders during Halloween period
+- **Summer Fireflies**: Smart population control system maintaining 25-55 fireflies with smooth fade-in/out animations
+- **New Year Effect**: Confetti with spin variations and firework explosions using Web Animations API
+
+All effects use:
+
+- Date-based activation (no manual switching required)
+- Screen-responsive particle density
+- Web Animations API for smooth, conflict-free animations
+- Automatic cleanup and resource management
 
 ### Navbar
 
@@ -173,9 +199,12 @@ bun run format:check
 
 - **IntersectionObserver**: All canvas-based effects only render when visible
 - **RequestAnimationFrame**: Optimized animation loops
+- **Web Animations API**: Seasonal effects use modern API for smooth, isolated animations
+- **Smart Population Control**: Fireflies maintain stable count (85-100%) with interval monitoring
 - **CSS Containment**: Isolated rendering contexts
 - **Debounced Scroll**: Efficient scroll event handling
 - **Lazy GitHub API**: Star counts fetched only when needed
+- **Dynamic Density**: Particle count scales with viewport size
 
 ## 📄 License
 
