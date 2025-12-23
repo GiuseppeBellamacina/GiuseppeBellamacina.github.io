@@ -141,6 +141,35 @@
 		}
 	];
 
+	// Funzione di timeout per le richieste
+	function fetchWithTimeout(url: string, timeout = 5000) {
+		return Promise.race([
+			fetch(url),
+			new Promise<Response>((_, reject) => setTimeout(() => reject(new Error('Timeout')), timeout))
+		]);
+	}
+
+	// Funzione retry con backoff esponenziale
+	async function fetchWithRetry(url: string, retries = 2, backoff = 1000) {
+		for (let i = 0; i <= retries; i++) {
+			try {
+				const response = await fetchWithTimeout(url, 5000);
+				if (response.ok) {
+					return response;
+				}
+				// Se la risposta è 403 (rate limit) o 404, non ritentare
+				if (response.status === 403 || response.status === 404) {
+					throw new Error(`HTTP ${response.status}`);
+				}
+			} catch (error) {
+				if (i === retries) throw error;
+				// Backoff esponenziale
+				await new Promise((resolve) => setTimeout(resolve, backoff * Math.pow(2, i)));
+			}
+		}
+		throw new Error('Max retries reached');
+	}
+
 	// Fetch GitHub stars
 	async function fetchGitHubStars() {
 		// Crea un array di promise per fetch paralleli
@@ -150,39 +179,46 @@
 				const cacheKey = `github_stars_${project.githubUrl}`;
 				const cached = localStorage.getItem(cacheKey);
 				if (cached) {
-					const { stars, timestamp } = JSON.parse(cached);
-					if (Date.now() - timestamp < 3600000) {
-						// 1 ora
-						project.stars = stars;
-						project.starsLoaded = true;
-						projects = [...projects];
-						return;
+					try {
+						const { stars, timestamp } = JSON.parse(cached);
+						if (Date.now() - timestamp < 3600000) {
+							// 1 ora
+							project.stars = stars;
+							project.starsLoaded = true;
+							projects = [...projects];
+							return;
+						}
+					} catch (e) {
+						// Cache corrotta, rimuovila
+						localStorage.removeItem(cacheKey);
 					}
 				}
 
 				const match = project.githubUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
 				if (match) {
 					const [, owner, repo] = match;
-					const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
-					if (response.ok) {
-						const data = await response.json();
-						project.stars = data.stargazers_count;
-						project.starsLoaded = true;
+					const response = await fetchWithRetry(`https://api.github.com/repos/${owner}/${repo}`);
+					const data = await response.json();
+					project.stars = data.stargazers_count;
+					project.starsLoaded = true;
 
-						// Salva in cache
-						localStorage.setItem(
-							cacheKey,
-							JSON.stringify({
-								stars: data.stargazers_count,
-								timestamp: Date.now()
-							})
-						);
+					// Salva in cache
+					localStorage.setItem(
+						cacheKey,
+						JSON.stringify({
+							stars: data.stargazers_count,
+							timestamp: Date.now()
+						})
+					);
 
-						projects = [...projects]; // Trigger reactivity progressivo
-					}
+					projects = [...projects]; // Trigger reactivity progressivo
 				}
 			} catch (error) {
 				console.error(`Failed to fetch stars for ${project.title}:`, error);
+				// Segna come caricato ma senza stelle per evitare ulteriori tentativi
+				project.starsLoaded = true;
+				project.stars = undefined;
+				projects = [...projects];
 			}
 		});
 
