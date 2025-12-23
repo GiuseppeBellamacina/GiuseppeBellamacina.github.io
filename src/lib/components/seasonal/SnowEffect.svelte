@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
+	let { forceShow = false }: { forceShow?: boolean } = $props();
+
 	let showSnow = $state(false);
 	let snowContainer = $state<HTMLDivElement>();
 
@@ -50,7 +52,7 @@
 	}
 
 	onMount(() => {
-		showSnow = isChristmasPeriod();
+		showSnow = forceShow || isChristmasPeriod();
 
 		if (showSnow) {
 			// Calcola la densità in base alla dimensione dello schermo
