@@ -54,11 +54,11 @@
 
 		if (showSnow) {
 			// Calcola la densità in base alla dimensione dello schermo
-			// Dimensione di riferimento: 1920x1080 (desktop) = 50 fiocchi
+			// Dimensione di riferimento: 1920x1080 (desktop) = 40 fiocchi
 			const screenArea = window.innerWidth * window.innerHeight;
 			const referenceArea = 1920 * 1080; // Area di riferimento
 			const densityFactor = screenArea / referenceArea;
-			const initialFlakes = Math.max(15, Math.floor(50 * densityFactor)); // Minimo 15 fiocchi
+			const initialFlakes = Math.max(12, Math.floor(40 * densityFactor)); // Minimo 12 fiocchi
 
 			// Crea fiocchi iniziali
 			for (let i = 0; i < initialFlakes; i++) {
@@ -67,8 +67,8 @@
 
 			// Continua a creare nuovi fiocchi (anche la frequenza è proporzionale)
 			const interval = setInterval(() => {
-				if (Math.random() > 0.7) {
-					// 30% di probabilità ogni 500ms
+				if (Math.random() > 0.78) {
+					// 22% di probabilità ogni 500ms
 					createSnowflake();
 				}
 			}, 500);
