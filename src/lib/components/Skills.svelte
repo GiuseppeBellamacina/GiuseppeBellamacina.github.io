@@ -7,6 +7,7 @@
 	interface TechIcon {
 		name: string;
 		icon: string;
+		url: string;
 	}
 
 	interface SkillCategory {
@@ -20,118 +21,238 @@
 			title: 'Languages',
 			emoji: '🔤',
 			icons: [
-				{ name: 'Python', icon: 'python-original.svg' },
-				{ name: 'C', icon: 'c-original.svg' },
-				{ name: 'C++', icon: 'cplusplus-original.svg' },
-				{ name: 'C#', icon: 'csharp-original.svg' },
-				{ name: 'Java', icon: 'java-original-wordmark-removebg-preview.png' },
-				{ name: 'JavaScript', icon: 'js.png' },
-				{ name: 'TypeScript', icon: 'Typescript_logo_2020.svg.png' },
-				{ name: 'Bash', icon: 'bash.png' },
-				{ name: 'Markdown', icon: 'markdown.svg' },
-				{ name: 'HTML', icon: 'white_bg_HTML5_logo_and_wordmark.svg.png' },
-				{ name: 'CSS', icon: 'css.png' },
-				{ name: 'LaTeX', icon: 'white_bg_latex-original.png' }
+				{ name: 'Python', icon: 'python-original.svg', url: 'https://www.python.org/' },
+				{
+					name: 'C',
+					icon: 'c-original.svg',
+					url: 'https://en.wikipedia.org/wiki/C_(programming_language)'
+				},
+				{ name: 'C++', icon: 'cplusplus-original.svg', url: 'https://isocpp.org/' },
+				{
+					name: 'C#',
+					icon: 'csharp-original.svg',
+					url: 'https://docs.microsoft.com/en-us/dotnet/csharp/'
+				},
+				{
+					name: 'Java',
+					icon: 'java-original-wordmark-removebg-preview.png',
+					url: 'https://www.java.com/'
+				},
+				{
+					name: 'JavaScript',
+					icon: 'js.png',
+					url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript'
+				},
+				{
+					name: 'TypeScript',
+					icon: 'Typescript_logo_2020.svg.png',
+					url: 'https://www.typescriptlang.org/'
+				},
+				{ name: 'Bash', icon: 'bash.png', url: 'https://www.gnu.org/software/bash/' },
+				{ name: 'Markdown', icon: 'markdown.svg', url: 'https://www.markdownguide.org/' },
+				{
+					name: 'HTML',
+					icon: 'white_bg_HTML5_logo_and_wordmark.svg.png',
+					url: 'https://developer.mozilla.org/en-US/docs/Web/HTML'
+				},
+				{ name: 'CSS', icon: 'css.png', url: 'https://developer.mozilla.org/en-US/docs/Web/CSS' },
+				{
+					name: 'LaTeX',
+					icon: 'white_bg_latex-original.png',
+					url: 'https://www.latex-project.org/'
+				}
 			]
 		},
 		{
 			title: 'AI/ML & Data Science',
 			emoji: '🤖',
 			icons: [
-				{ name: 'PyTorch', icon: 'pytorch-original.svg' },
-				{ name: 'TensorFlow', icon: 'tensorflow.png' },
-				{ name: 'Keras', icon: 'keras-original.svg' },
-				{ name: 'Scikit-learn', icon: 'white_bg_scikitlearn-original.png' },
-				{ name: 'NumPy', icon: 'numpy-original.svg' },
-				{ name: 'Pandas', icon: 'white_bg_pandas-original.png' },
-				{ name: 'Polars', icon: 'polars.png' },
-				{ name: 'Matplotlib', icon: 'matplotlib-original.svg' },
-				{ name: 'Seaborn', icon: 'seaborn-1.svg' },
-				{ name: 'Plotly', icon: 'plotly.png' },
-				{ name: 'OpenCV', icon: 'opencv-original.svg' },
-				{ name: 'spaCy', icon: 'spacy.png' },
-				{ name: 'NLTK', icon: 'nltk.png' },
-				{ name: 'LangChain', icon: 'langchain.jpg' },
-				{ name: 'LangGraph', icon: 'langgraph-color.jpg' },
-				{ name: 'LangSmith', icon: 'langsmith-color.jpg' },
-				{ name: 'HuggingFace', icon: 'huggingface-2-removebg-preview.png' },
-				{ name: 'Kaggle', icon: 'kaggle-original-wordmark.svg' },
-				{ name: 'Ollama', icon: 'white_bg_ollamalogo.png' },
-				{ name: 'Meta', icon: 'meta-6871457_1280.webp' },
-				{ name: 'OpenAI', icon: 'white_bg_openai-2.png' },
-				{ name: 'Model Context Protocol', icon: 'mcp.jpg' },
-				{ name: 'Chroma', icon: 'chroma.png' },
-				{ name: 'Weaviate', icon: 'weaviate.png' }
+				{ name: 'PyTorch', icon: 'pytorch-original.svg', url: 'https://pytorch.org/' },
+				{ name: 'TensorFlow', icon: 'tensorflow.png', url: 'https://www.tensorflow.org/' },
+				{ name: 'Keras', icon: 'keras-original.svg', url: 'https://keras.io/' },
+				{
+					name: 'Scikit-learn',
+					icon: 'white_bg_scikitlearn-original.png',
+					url: 'https://scikit-learn.org/'
+				},
+				{ name: 'NumPy', icon: 'numpy-original.svg', url: 'https://numpy.org/' },
+				{ name: 'Pandas', icon: 'white_bg_pandas-original.png', url: 'https://pandas.pydata.org/' },
+				{ name: 'Polars', icon: 'polars.png', url: 'https://www.pola.rs/' },
+				{ name: 'Matplotlib', icon: 'matplotlib-original.svg', url: 'https://matplotlib.org/' },
+				{ name: 'Seaborn', icon: 'seaborn-1.svg', url: 'https://seaborn.pydata.org/' },
+				{ name: 'Plotly', icon: 'plotly.png', url: 'https://plotly.com/' },
+				{ name: 'OpenCV', icon: 'opencv-original.svg', url: 'https://opencv.org/' },
+				{ name: 'spaCy', icon: 'spacy.png', url: 'https://spacy.io/' },
+				{ name: 'NLTK', icon: 'nltk.png', url: 'https://www.nltk.org/' },
+				{ name: 'LangChain', icon: 'langchain.jpg', url: 'https://www.langchain.com/' },
+				{
+					name: 'LangGraph',
+					icon: 'langgraph-color.jpg',
+					url: 'https://langchain-ai.github.io/langgraph/'
+				},
+				{
+					name: 'LangSmith',
+					icon: 'langsmith-color.jpg',
+					url: 'https://www.langchain.com/langsmith'
+				},
+				{
+					name: 'HuggingFace',
+					icon: 'huggingface-2-removebg-preview.png',
+					url: 'https://huggingface.co/'
+				},
+				{ name: 'Kaggle', icon: 'kaggle-original-wordmark.svg', url: 'https://www.kaggle.com/' },
+				{ name: 'Ollama', icon: 'white_bg_ollamalogo.png', url: 'https://ollama.com/' },
+				{ name: 'Meta', icon: 'meta-6871457_1280.webp', url: 'https://ai.meta.com/' },
+				{ name: 'OpenAI', icon: 'white_bg_openai-2.png', url: 'https://openai.com/' },
+				{
+					name: 'Model Context Protocol',
+					icon: 'mcp.jpg',
+					url: 'https://modelcontextprotocol.io/'
+				},
+				{ name: 'Chroma', icon: 'chroma.png', url: 'https://www.trychroma.com/' },
+				{ name: 'Weaviate', icon: 'weaviate.png', url: 'https://weaviate.io/' }
 			]
 		},
 		{
 			title: 'Frameworks & Libraries',
 			emoji: '🌐',
 			icons: [
-				{ name: 'React', icon: 'react.png' },
-				{ name: 'Node.js', icon: 'free-node-js-icon-svg-download-png-1174935.webp' },
-				{ name: 'FastAPI', icon: 'fastapi.svg' },
-				{ name: 'Flask', icon: 'white_bg_flask-original-wordmark.png' },
-				{ name: 'Quart', icon: 'quart.png' },
-				{ name: 'Uvicorn', icon: 'white_bg_uvicorn.png' },
-				{ name: 'Streamlit', icon: 'streamlit-mark-color.svg' },
-				{ name: 'Gradio', icon: 'gradio-color.png' },
-				{ name: 'Requests', icon: 'Requests_Python_Logo.png' },
-				{ name: 'Selenium', icon: 'selenium-original.svg' },
-				{ name: 'Pytest', icon: 'pytest.png' }
+				{ name: 'React', icon: 'react.png', url: 'https://react.dev/' },
+				{
+					name: 'Node.js',
+					icon: 'free-node-js-icon-svg-download-png-1174935.webp',
+					url: 'https://nodejs.org/'
+				},
+				{ name: 'FastAPI', icon: 'fastapi.svg', url: 'https://fastapi.tiangolo.com/' },
+				{
+					name: 'Flask',
+					icon: 'white_bg_flask-original-wordmark.png',
+					url: 'https://flask.palletsprojects.com/'
+				},
+				{ name: 'Quart', icon: 'quart.png', url: 'https://quart.palletsprojects.com/' },
+				{ name: 'Uvicorn', icon: 'white_bg_uvicorn.png', url: 'https://www.uvicorn.org/' },
+				{ name: 'Streamlit', icon: 'streamlit-mark-color.svg', url: 'https://streamlit.io/' },
+				{ name: 'Gradio', icon: 'gradio-color.png', url: 'https://www.gradio.app/' },
+				{
+					name: 'Requests',
+					icon: 'Requests_Python_Logo.png',
+					url: 'https://requests.readthedocs.io/'
+				},
+				{ name: 'Selenium', icon: 'selenium-original.svg', url: 'https://www.selenium.dev/' },
+				{ name: 'Pytest', icon: 'pytest.png', url: 'https://pytest.org/' }
 			]
 		},
 		{
 			title: 'Databases',
 			emoji: '🗃️',
 			icons: [
-				{ name: 'MySQL', icon: 'mysql-original-wordmark-removebg-preview.png' },
-				{ name: 'PostgreSQL', icon: 'Postgresql_elephant.svg.png' },
-				{ name: 'SQLite', icon: 'white_bg_sqlite-original-wordmark.png' },
-				{ name: 'Neo4j', icon: 'white_bg_neo4j-icon-452x512-b63ajo4a.png' },
-				{ name: 'PHPMyAdmin', icon: 'white_bg_phpmyadmin-thumb.png' },
-				{ name: 'SQLAlchemy', icon: 'white_bg_sqlalchemy-original-wordmark.png' }
+				{
+					name: 'MySQL',
+					icon: 'mysql-original-wordmark-removebg-preview.png',
+					url: 'https://www.mysql.com/'
+				},
+				{
+					name: 'PostgreSQL',
+					icon: 'Postgresql_elephant.svg.png',
+					url: 'https://www.postgresql.org/'
+				},
+				{
+					name: 'SQLite',
+					icon: 'white_bg_sqlite-original-wordmark.png',
+					url: 'https://www.sqlite.org/'
+				},
+				{
+					name: 'Neo4j',
+					icon: 'white_bg_neo4j-icon-452x512-b63ajo4a.png',
+					url: 'https://neo4j.com/'
+				},
+				{
+					name: 'PHPMyAdmin',
+					icon: 'white_bg_phpmyadmin-thumb.png',
+					url: 'https://www.phpmyadmin.net/'
+				},
+				{
+					name: 'SQLAlchemy',
+					icon: 'white_bg_sqlalchemy-original-wordmark.png',
+					url: 'https://www.sqlalchemy.org/'
+				}
 			]
 		},
 		{
 			title: 'DevOps & Tools',
 			emoji: '🛠️',
 			icons: [
-				{ name: 'Git', icon: 'white_bg_git-original-wordmark.png' },
-				{ name: 'GitHub', icon: 'github-original-wordmark-removebg-preview.png' },
-				{ name: 'GitHub Actions', icon: 'github-actions.png' },
-				{ name: 'Docker', icon: 'docker-original.svg' },
-				{ name: 'VirtualBox', icon: 'virtualbox.png' },
-				{ name: 'AWS', icon: 'aws.webp' },
-				{ name: 'Anaconda', icon: 'white_bg_anaconda-original.png' },
-				{ name: 'Poetry', icon: 'poetry.png' },
-				{ name: 'uv', icon: 'uv.svg' },
-				{ name: 'npm', icon: 'npm.webp' },
-				{ name: 'Bun', icon: 'bun.png' }
+				{ name: 'Git', icon: 'white_bg_git-original-wordmark.png', url: 'https://git-scm.com/' },
+				{
+					name: 'GitHub',
+					icon: 'github-original-wordmark-removebg-preview.png',
+					url: 'https://github.com/'
+				},
+				{
+					name: 'GitHub Actions',
+					icon: 'github-actions.png',
+					url: 'https://github.com/features/actions'
+				},
+				{ name: 'Docker', icon: 'docker-original.svg', url: 'https://www.docker.com/' },
+				{ name: 'VirtualBox', icon: 'virtualbox.png', url: 'https://www.virtualbox.org/' },
+				{ name: 'AWS', icon: 'aws.webp', url: 'https://aws.amazon.com/' },
+				{
+					name: 'Anaconda',
+					icon: 'white_bg_anaconda-original.png',
+					url: 'https://www.anaconda.com/'
+				},
+				{ name: 'Poetry', icon: 'poetry.png', url: 'https://python-poetry.org/' },
+				{ name: 'uv', icon: 'uv.svg', url: 'https://docs.astral.sh/uv/' },
+				{ name: 'npm', icon: 'npm.webp', url: 'https://www.npmjs.com/' },
+				{ name: 'Bun', icon: 'bun.png', url: 'https://bun.sh/' }
 			]
 		},
 		{
 			title: 'IDEs & Editors',
 			emoji: '🖥️',
 			icons: [
-				{ name: 'VSCode', icon: 'vscode-original.svg' },
-				{ name: 'Visual Studio', icon: 'visualstudio-original.svg' },
-				{ name: 'Jupyter', icon: 'jupyter-original-wordmark-removebg-preview.png' },
-				{ name: 'Google Colab', icon: 'google-colab-icon.webp' },
-				{ name: 'Unity', icon: 'white_bg_unity-original.png' },
-				{ name: 'Blender', icon: 'blender-original-removebg-preview.png' }
+				{ name: 'VSCode', icon: 'vscode-original.svg', url: 'https://code.visualstudio.com/' },
+				{
+					name: 'Visual Studio',
+					icon: 'visualstudio-original.svg',
+					url: 'https://visualstudio.microsoft.com/'
+				},
+				{
+					name: 'Jupyter',
+					icon: 'jupyter-original-wordmark-removebg-preview.png',
+					url: 'https://jupyter.org/'
+				},
+				{
+					name: 'Google Colab',
+					icon: 'google-colab-icon.webp',
+					url: 'https://colab.research.google.com/'
+				},
+				{ name: 'Unity', icon: 'white_bg_unity-original.png', url: 'https://unity.com/' },
+				{
+					name: 'Blender',
+					icon: 'blender-original-removebg-preview.png',
+					url: 'https://www.blender.org/'
+				}
 			]
 		},
 		{
 			title: 'Operating Systems & Security',
 			emoji: '💻',
 			icons: [
-				{ name: 'Windows', icon: 'white_bg_windows11-original.png' },
-				{ name: 'Linux', icon: 'linux-original.svg' },
-				{ name: 'Debian', icon: 'white_bg_Debian_logo.png' },
-				{ name: 'Ubuntu', icon: 'ubuntu-original.svg' },
-				{ name: 'Kali Linux', icon: 'white_bg_kalilinux-original-wordmark.png' },
-				{ name: 'Wireshark', icon: 'Wireshark_icon_new.png' }
+				{
+					name: 'Windows',
+					icon: 'white_bg_windows11-original.png',
+					url: 'https://www.microsoft.com/windows'
+				},
+				{ name: 'Linux', icon: 'linux-original.svg', url: 'https://www.linux.org/' },
+				{ name: 'Debian', icon: 'white_bg_Debian_logo.png', url: 'https://www.debian.org/' },
+				{ name: 'Ubuntu', icon: 'ubuntu-original.svg', url: 'https://ubuntu.com/' },
+				{
+					name: 'Kali Linux',
+					icon: 'white_bg_kalilinux-original-wordmark.png',
+					url: 'https://www.kali.org/'
+				},
+				{ name: 'Wireshark', icon: 'Wireshark_icon_new.png', url: 'https://www.wireshark.org/' }
 			]
 		}
 	];
@@ -443,9 +564,12 @@
 				<h3>{category.emoji} {category.title}</h3>
 				<div class="skills-grid">
 					{#each category.icons as icon}
-						<div class="tech-icon" data-title={icon.name}>
-							<img src="/assets/icons/{icon.icon}" alt={icon.name} loading="lazy" />
-						</div>
+						<a href={icon.url} target="_blank" rel="noopener noreferrer" class="tech-icon-link">
+							<div class="tech-icon" data-title={icon.name}>
+								<span class="tech-name">{icon.name}</span>
+								<img src="/assets/icons/{icon.icon}" alt={icon.name} loading="lazy" />
+							</div>
+						</a>
 					{/each}
 				</div>
 			</div>
