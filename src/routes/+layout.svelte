@@ -11,8 +11,8 @@
 
 <!-- Effetti stagionali automatici -->
 <SnowEffect />
-<HalloweenEffect />
-<SummerEffect />
 <NewYearEffect />
+<SummerEffect />
+<HalloweenEffect />
 
 {@render children()}

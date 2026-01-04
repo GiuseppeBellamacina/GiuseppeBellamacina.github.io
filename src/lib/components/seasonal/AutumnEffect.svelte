@@ -14,8 +14,11 @@
 		// Settembre (mese 8) dal giorno 15 in poi
 		if (month === 8 && day >= 15) return true;
 
-		// Ottobre (mese 9) e Novembre (mese 10)
-		if (month === 9 || month === 10) return true;
+		// Ottobre (mese 9) fino al giorno 19 (escludiamo 20-31 per Halloween)
+		if (month === 9 && day <= 19) return true;
+
+		// Novembre (mese 10)
+		if (month === 10) return true;
 
 		return false;
 	}

@@ -11,11 +11,11 @@
 		const month = now.getMonth(); // 0-11
 		const day = now.getDate();
 
-		// Dicembre (mese 11) dal giorno 1 in poi
-		if (month === 11 && day >= 1) return true;
+		// Dicembre (mese 11) dal giorno 1 al 30 (escludiamo il 31 per Capodanno)
+		if (month === 11 && day >= 1 && day <= 30) return true;
 
-		// Gennaio (mese 0) fino al giorno 6
-		if (month === 0 && day <= 6) return true;
+		// Gennaio (mese 0) dal 3 al 6 (escludiamo 1-2 gennaio per Capodanno)
+		if (month === 0 && day >= 3 && day <= 6) return true;
 
 		return false;
 	}
