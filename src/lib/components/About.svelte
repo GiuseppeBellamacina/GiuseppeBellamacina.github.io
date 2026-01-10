@@ -459,6 +459,10 @@
 							>
 							- Exploring advanced techniques for image quality improvement
 						</li>
+						<li>
+							<strong>Trip Planner</strong>
+							- Trip Planner PWA (Progressive Web App)
+						</li>
 						<li>An <strong>AI to conquer the world</strong> (I'm joking... maybe)</li>
 						<li><strong>Survive</strong></li>
 					</ul>
