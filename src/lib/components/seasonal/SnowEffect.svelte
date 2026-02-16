@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { setSeason, resetSeason } from '$lib/stores/seasonStore';
 
 	let { forceShow = false }: { forceShow?: boolean } = $props();
 
@@ -55,6 +56,9 @@
 		showSnow = forceShow || isChristmasPeriod();
 
 		if (showSnow) {
+			// Set the season in the store
+			setSeason('snow');
+
 			// Calcola la densità in base alla dimensione dello schermo
 			// Dimensione di riferimento: 1920x1080 (desktop) = 40 fiocchi
 			const screenArea = window.innerWidth * window.innerHeight;
@@ -74,6 +78,7 @@
 					createSnowflake();
 				}
 			}, 500);
+			resetSeason();
 
 			return () => {
 				clearInterval(interval);

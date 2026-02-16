@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { setSeason, resetSeason } from '$lib/stores/seasonStore';
 
 	let { forceShow = false }: { forceShow?: boolean } = $props();
 
@@ -147,6 +148,9 @@
 		showNewYear = forceShow || isNewYearPeriod();
 
 		if (showNewYear) {
+			// Set the season in the store
+			setSeason('newyear');
+
 			// Calcola la densità in base alla dimensione dello schermo
 			const screenArea = window.innerWidth * window.innerHeight;
 			const referenceArea = 1920 * 1080;
@@ -174,6 +178,7 @@
 			return () => {
 				clearInterval(confettiInterval);
 				clearInterval(fireworkInterval);
+				resetSeason();
 			};
 		}
 	});

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { setSeason, resetSeason } from '$lib/stores/seasonStore';
 
 	let { forceShow = false }: { forceShow?: boolean } = $props();
 
@@ -50,6 +51,9 @@
 		showHalloween = forceShow || isHalloweenPeriod();
 
 		if (showHalloween) {
+			// Set the season in the store
+			setSeason('halloween');
+
 			// Calcola la densità in base alla dimensione dello schermo
 			const screenArea = window.innerWidth * window.innerHeight;
 			const referenceArea = 1920 * 1080;
@@ -68,6 +72,7 @@
 					createHalloweenElement();
 				}
 			}, 700);
+			resetSeason();
 
 			return () => {
 				clearInterval(interval);
@@ -110,6 +115,7 @@
 		user-select: none;
 		will-change: transform;
 		filter: drop-shadow(0 0 5px rgba(255, 140, 0, 0.4));
+		opacity: 0.7;
 	}
 
 	/* Animazione pipistrelli - volo orizzontale con ondulazione naturale */

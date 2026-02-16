@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { setSeason, resetSeason } from '$lib/stores/seasonStore';
 
 	let { forceShow = false }: { forceShow?: boolean } = $props();
 
@@ -55,10 +56,10 @@
 			[
 				// Fade-in
 				{ opacity: 0, transform: 'translate(0, 0)', offset: 0 },
-				{ opacity: 1, transform: 'translate(0, 0)', offset: fadeInDuration / totalDuration },
+				{ opacity: 0.7, transform: 'translate(0, 0)', offset: fadeInDuration / totalDuration },
 				// Vita
 				{
-					opacity: 1,
+					opacity: 0.7,
 					transform: `translate(${moveX}px, ${moveY}px)`,
 					offset: (fadeInDuration + lifeTime) / totalDuration
 				},
@@ -110,6 +111,9 @@
 		showFireflies = forceShow || isSummerPeriod();
 
 		if (showFireflies) {
+			// Set the season in the store
+			setSeason('summer');
+
 			// Calcola numero massimo in base allo schermo
 			const screenArea = window.innerWidth * window.innerHeight;
 			const referenceArea = 1920 * 1080;
@@ -127,6 +131,7 @@
 
 			return () => {
 				clearInterval(checkInterval);
+				resetSeason();
 			};
 		}
 	});

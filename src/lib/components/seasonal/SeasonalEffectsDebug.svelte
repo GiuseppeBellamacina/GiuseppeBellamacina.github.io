@@ -4,16 +4,46 @@
 
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { setSeason, resetSeason } from '$lib/stores/seasonStore';
 	import SnowEffect from './SnowEffect.svelte';
 	import HalloweenEffect from './HalloweenEffect.svelte';
 	import SummerEffect from './SummerEffect.svelte';
 	import NewYearEffect from './NewYearEffect.svelte';
+	import SakuraEffect from './SakuraEffect.svelte';
+	import AutumnEffect from './AutumnEffect.svelte';
 
 	let selectedEffect = $state<string>('none');
 	let isDebugMode = $state(false);
 
 	$effect(() => {
 		debugModeStore.active = isDebugMode;
+		// Update the season store when debug mode changes effect
+		if (isDebugMode) {
+			switch (selectedEffect) {
+				case 'snow':
+					setSeason('snow');
+					break;
+				case 'halloween':
+					setSeason('halloween');
+					break;
+				case 'summer':
+					setSeason('summer');
+					break;
+				case 'newyear':
+					setSeason('newyear');
+					break;
+				case 'spring':
+					setSeason('spring');
+					break;
+				case 'autumn':
+					setSeason('autumn');
+					break;
+				default:
+					resetSeason();
+			}
+		} else {
+			resetSeason();
+		}
 	});
 
 	const effects = [
@@ -21,7 +51,9 @@
 		{ id: 'snow', name: '❄️ Neve (Natale)', component: SnowEffect },
 		{ id: 'halloween', name: '🎃 Halloween', component: HalloweenEffect },
 		{ id: 'summer', name: '✨ Estate (Lucciole)', component: SummerEffect },
-		{ id: 'newyear', name: '🎆 Capodanno', component: NewYearEffect }
+		{ id: 'newyear', name: '🎆 Capodanno', component: NewYearEffect },
+		{ id: 'spring', name: '🌸 Primavera (Sakura)', component: SakuraEffect },
+		{ id: 'autumn', name: '🍂 Autunno', component: AutumnEffect }
 	];
 
 	onMount(() => {
@@ -69,6 +101,10 @@
 {#if isDebugMode}
 	{#if selectedEffect === 'snow'}
 		<SnowEffect forceShow={true} />
+	{:else if selectedEffect === 'spring'}
+		<SakuraEffect forceShow={true} />
+	{:else if selectedEffect === 'autumn'}
+		<AutumnEffect forceShow={true} />
 	{:else if selectedEffect === 'halloween'}
 		<HalloweenEffect forceShow={true} />
 	{:else if selectedEffect === 'summer'}
