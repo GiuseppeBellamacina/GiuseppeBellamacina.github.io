@@ -7,8 +7,13 @@
 	import Skills from '$lib/components/Skills.svelte';
 	import Contact from '$lib/components/Contact.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import ScrollProgress from '$lib/components/ScrollProgress.svelte';
+	import BackToTop from '$lib/components/BackToTop.svelte';
+	import CursorTrail from '$lib/components/CursorTrail.svelte';
 </script>
 
+<ScrollProgress />
+<CursorTrail />
 <Navbar />
 <Hero />
 <About />
@@ -17,3 +22,4 @@
 <Skills />
 <Contact />
 <Footer />
+<BackToTop />

@@ -79,6 +79,26 @@ body::before {
 	}
 }
 
+/* Section Entrance Animations */
+.about,
+.experience,
+.projects,
+.skills,
+.contact {
+	animation: sectionFadeIn 1s ease-out;
+}
+
+@keyframes sectionFadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(40px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
 .container {
 	max-width: 1200px;
 	margin: 0 auto;
@@ -651,22 +671,39 @@ body::before {
 
 .social-links a:hover {
 	color: var(--primary-color);
-	transform: translateY(-5px) scale(1.2);
+	transform: translateY(-5px) scale(1.2) rotate(5deg);
 	text-shadow:
 		0 0 20px var(--primary-color),
 		0 0 40px var(--neon-pink),
 		0 0 60px var(--neon-purple);
-	filter: hue-rotate(45deg);
-	animation: socialFloat 0.6s ease-in-out infinite;
+	filter: hue-rotate(45deg) brightness(1.3);
+	animation:
+		socialFloat 0.6s ease-in-out infinite,
+		socialRotate 2s ease-in-out infinite;
 }
 
 @keyframes socialFloat {
 	0%,
 	100% {
-		transform: translateY(-5px) scale(1.2);
+		transform: translateY(-5px) scale(1.2) rotate(5deg);
 	}
 	50% {
-		transform: translateY(-8px) scale(1.25);
+		transform: translateY(-8px) scale(1.25) rotate(-5deg);
+	}
+}
+
+@keyframes socialRotate {
+	0% {
+		filter: hue-rotate(0deg) brightness(1.3);
+	}
+	33% {
+		filter: hue-rotate(120deg) brightness(1.3);
+	}
+	66% {
+		filter: hue-rotate(240deg) brightness(1.3);
+	}
+	100% {
+		filter: hue-rotate(360deg) brightness(1.3);
 	}
 }
 
@@ -807,6 +844,20 @@ body::before {
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
+	opacity: 0;
+	transform: translateY(30px);
+	animation: fadeInUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 .about-content {
@@ -1946,8 +1997,28 @@ body::before {
 	background: var(--primary-color);
 	color: var(--bg-dark);
 	border-color: var(--primary-color);
-	transform: translateY(-5px);
-	box-shadow: 0 10px 25px rgba(0, 217, 255, 0.3);
+	transform: translateY(-5px) scale(1.05);
+	box-shadow:
+		0 10px 25px rgba(0, 217, 255, 0.4),
+		0 0 30px rgba(0, 217, 255, 0.3),
+		0 0 50px rgba(0, 217, 255, 0.2);
+	animation: contactBtnPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes contactBtnPulse {
+	0%,
+	100% {
+		box-shadow:
+			0 10px 25px rgba(0, 217, 255, 0.4),
+			0 0 30px rgba(0, 217, 255, 0.3),
+			0 0 50px rgba(0, 217, 255, 0.2);
+	}
+	50% {
+		box-shadow:
+			0 10px 30px rgba(0, 217, 255, 0.5),
+			0 0 40px rgba(0, 217, 255, 0.4),
+			0 0 60px rgba(0, 217, 255, 0.3);
+	}
 }
 
 /* Footer */

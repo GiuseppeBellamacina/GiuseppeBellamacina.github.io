@@ -1,0 +1,76 @@
+<script lang="ts">
+	import { onMount } from 'svelte';
+
+	let visible = false;
+
+	function checkScroll() {
+		visible = window.scrollY > 500;
+	}
+
+	function scrollToTop() {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth'
+		});
+	}
+
+	onMount(() => {
+		window.addEventListener('scroll', checkScroll);
+		checkScroll();
+
+		return () => {
+			window.removeEventListener('scroll', checkScroll);
+		};
+	});
+</script>
+
+<button
+	class="back-to-top"
+	class:visible
+	on:click={scrollToTop}
+	aria-label="Back to top"
+	title="Back to top"
+>
+	<i class="fas fa-arrow-up"></i>
+</button>
+
+<style>
+	.back-to-top {
+		position: fixed;
+		bottom: 30px;
+		right: 30px;
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		background: var(--bg-card);
+		border: 2px solid var(--primary-color);
+		color: var(--primary-color);
+		font-size: 1.2rem;
+		cursor: pointer;
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(20px) scale(0.8);
+		transition: all 0.3s ease;
+		z-index: 1000;
+		box-shadow: 0 4px 15px rgba(0, 217, 255, 0.2);
+	}
+
+	.back-to-top.visible {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0) scale(1);
+	}
+
+	.back-to-top:hover {
+		background: var(--primary-color);
+		color: var(--bg-primary);
+		transform: translateY(-3px) scale(1.1);
+		box-shadow:
+			0 0 20px var(--primary-color),
+			0 0 40px rgba(0, 217, 255, 0.4);
+	}
+
+	.back-to-top:active {
+		transform: translateY(-1px) scale(1.05);
+	}
+</style>
