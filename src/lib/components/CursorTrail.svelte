@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { currentSeason } from '$lib/stores/seasonStore';
+	import type { Season } from '$lib/stores/seasonStore';
 
 	interface Particle {
 		x: number;
@@ -18,24 +20,53 @@
 	let cursorY = 0;
 	let lastTime = Date.now();
 	let hueBase = 0;
+	let season: Season = 'default';
+
+	// Subscribe to season changes
+	currentSeason.subscribe((value) => {
+		season = value;
+	});
+
+	function getSeasonalColors(season: Season): { hues: number[]; count: number } {
+		switch (season) {
+			case 'newyear':
+				return { hues: [0, 45, 200, 280, 320], count: 3 }; // Confetti colors
+			case 'snow':
+				return { hues: [180, 200, 220], count: 2 }; // Ice blue/white
+			case 'halloween':
+				return { hues: [25, 30, 280], count: 2 }; // Orange and purple
+			case 'summer':
+				return { hues: [45, 60, 160, 180], count: 2 }; // Yellow/green firefly
+			case 'spring':
+				return { hues: [300, 320, 340], count: 2 }; // Pink sakura
+			case 'autumn':
+				return { hues: [15, 25, 35], count: 2 }; // Orange/red leaves
+			default:
+				return { hues: [180, 200, 280, 320, 45], count: 2 }; // Rainbow
+		}
+	}
 
 	function createParticle(x: number, y: number) {
-		// Create multiple smaller particles for a more star-like effect
-		const particleCount = 2;
+		const seasonalConfig = getSeasonalColors(season);
+		const particleCount = seasonalConfig.count;
 		const newParticles = [];
 
 		for (let i = 0; i < particleCount; i++) {
 			const angle = Math.random() * Math.PI * 2;
-			const speed = Math.random() * 0.5;
+			const speed = season === 'snow' ? Math.random() * 0.3 : Math.random() * 0.5;
+
+			const hue =
+				seasonalConfig.hues[Math.floor(Math.random() * seasonalConfig.hues.length)] +
+				(Math.random() - 0.5) * 20;
 
 			newParticles.push({
 				x: x + (Math.random() - 0.5) * 10,
 				y: y + (Math.random() - 0.5) * 10,
 				opacity: 0.9,
 				size: Math.random() * 3 + 2,
-				hue: (hueBase + Math.random() * 60 - 30) % 360,
+				hue: hue % 360,
 				velocityX: Math.cos(angle) * speed,
-				velocityY: Math.sin(angle) * speed,
+				velocityY: season === 'snow' ? Math.abs(Math.sin(angle)) * 0.3 : Math.sin(angle) * speed,
 				rotation: Math.random() * 360,
 				rotationSpeed: (Math.random() - 0.5) * 10
 			});
@@ -62,11 +93,10 @@
 		cursorY = e.clientY;
 
 		const now = Date.now();
-		// Create particles more frequently for smoother trail
 		if (now - lastTime > 30) {
 			createParticle(e.clientX, e.clientY);
 			lastTime = now;
-			hueBase = (hueBase + 1) % 360; // Cycle through colors
+			hueBase = (hueBase + 1) % 360;
 		}
 	}
 
