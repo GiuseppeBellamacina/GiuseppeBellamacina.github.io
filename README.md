@@ -13,7 +13,6 @@ A modern, cyberpunk-themed portfolio website showcasing AI/ML engineering projec
 - **Matrix Rain Animation** - Dynamic character rain effect on the navigation bar
 - **Seasonal Effects System** - Automatic themed animations based on calendar periods
   - 🎄 **Christmas Snow** (Dec 1 - Jan 6) - Falling snowflakes with natural physics
-  - 🎃 **Halloween** (Oct 20-31) - Spooky pumpkins, ghosts, and spiders
   - 🌟 **Summer Fireflies** (Jun-Aug) - Glowing fireflies with smooth fade animations
   - 🎆 **New Year** (Dec 31 - Jan 2) - Confetti and firework explosions with rotation
 - **Neural Network Visualization** - Interactive canvas-based feedforward network with animated impulse propagation
