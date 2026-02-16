@@ -7,7 +7,7 @@
 	// import HalloweenEffect from '$lib/components/seasonal/HalloweenEffect.svelte';
 	// import SakuraEffect from '$lib/components/seasonal/SakuraEffect.svelte';
 	// import AutumnEffect from '$lib/components/seasonal/AutumnEffect.svelte';
-	import SeasonalEffectsDebug from '$lib/components/seasonal/SeasonalEffectsDebug.svelte';
+	// import SeasonalEffectsDebug from '$lib/components/seasonal/SeasonalEffectsDebug.svelte';
 
 	let { children } = $props();
 </script>
@@ -21,6 +21,6 @@
 <!-- <AutumnEffect /> -->
 
 <!-- Debug panel per testare gli effetti -->
-<SeasonalEffectsDebug />
+<!-- <SeasonalEffectsDebug /> -->
 
 {@render children()}
