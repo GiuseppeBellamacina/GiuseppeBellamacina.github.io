@@ -392,64 +392,6 @@
 		});
 	}
 
-	// Rainbow effect on random icons
-	let rainbowIcons: HTMLElement[] = [];
-
-	function addRandomRainbowEffect() {
-		const icons = Array.from(document.querySelectorAll('.tech-icon')) as HTMLElement[];
-
-		icons.forEach((icon) => {
-			const rainbowLayer = document.createElement('div');
-			rainbowLayer.className = 'rainbow-layer';
-			icon.appendChild(rainbowLayer);
-		});
-
-		rainbowIcons = icons;
-		const numberOfRainbowIcons = Math.floor(icons.length * 0.15);
-
-		function shuffleArray<T>(array: T[]): T[] {
-			const shuffled = [...array];
-			for (let i = shuffled.length - 1; i > 0; i--) {
-				const j = Math.floor(Math.random() * (i + 1));
-				[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-			}
-			return shuffled;
-		}
-
-		function activateRandomIcons() {
-			const shuffled = shuffleArray(rainbowIcons);
-			const selectedIcons = shuffled.slice(0, numberOfRainbowIcons);
-
-			selectedIcons.forEach((icon, index) => {
-				const randomDelay = Math.random() * 5000 + index * 400;
-				setTimeout(() => {
-					icon.classList.add('rainbow-glow');
-				}, randomDelay);
-			});
-		}
-
-		function deactivateAllIcons() {
-			rainbowIcons.forEach((icon, index) => {
-				const randomDelay = Math.random() * 4000 + index * 150;
-				setTimeout(() => {
-					icon.classList.remove('rainbow-glow');
-				}, randomDelay);
-			});
-		}
-
-		activateRandomIcons();
-
-		let cycleCount = 0;
-		setInterval(() => {
-			if (cycleCount % 2 === 0) {
-				deactivateAllIcons();
-			} else {
-				setTimeout(() => activateRandomIcons(), 3000);
-			}
-			cycleCount++;
-		}, 12000);
-	}
-
 	// Parallax hover effect with random animation
 	function addParallaxEffect() {
 		const icons = document.querySelectorAll('.tech-icon') as NodeListOf<HTMLElement>;
@@ -477,9 +419,9 @@
 					const rect = icon.getBoundingClientRect();
 					const x = e.clientX - rect.left - rect.width / 2;
 					const y = e.clientY - rect.top - rect.height / 2;
-					const moveX = (x / rect.width) * 10;
-					const moveY = (y / rect.height) * 10;
-					icon.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.1)`;
+					const moveX = (x / rect.width) * 3;
+					const moveY = (y / rect.height) * 3;
+					icon.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
 				}
 			});
 		});
@@ -533,7 +475,6 @@
 						createShootingStars();
 						createConstellations();
 						setTimeout(() => {
-							addRandomRainbowEffect();
 							addParallaxEffect();
 							setupSkillsAnimations();
 						}, 100);

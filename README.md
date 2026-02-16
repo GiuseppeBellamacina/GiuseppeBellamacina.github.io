@@ -100,39 +100,36 @@ bun run format:check
 
 ## 📂 Project Structure
 
-```
-├── .github/
-│   └── workflows/
-│       └── deploy.yml          # GitHub Pages deployment
-├── src/
-│   ├── lib/
-│   │   ├── components/
-│   │   │   ├── seasonal/
-│   │   │   │   ├── SnowEffect.svelte        # Christmas snow animation
-│   │   │   │   ├── HalloweenEffect.svelte   # Halloween decorations
-│   │   │   │   ├── SummerEffect.svelte      # Fireflies with population control
-│   │   │   │   └── NewYearEffect.svelte     # Confetti and fireworks
-│   │   │   ├── Navbar.svelte   # Navigation with matrix rain
-│   │   │   ├── Hero.svelte     # Landing section with typing effect
-│   │   │   ├── About.svelte    # Neural network visualization
-│   │   │   ├── Experience.svelte # Timeline with binary particles
-│   │   │   ├── Projects.svelte # GitHub-integrated project showcase
-│   │   │   ├── Skills.svelte   # Tech stack with space theme
-│   │   │   ├── Contact.svelte  # Contact form and links
-│   │   │   └── Footer.svelte   # Footer section
-│   │   ├── assets/             # Images and icons
-│   │   └── performance.css     # Performance optimization utilities
-│   ├── routes/
-│   │   ├── +layout.svelte      # Root layout
-│   │   ├── +layout.ts          # Layout configuration
-│   │   └── +page.svelte        # Homepage
-│   ├── app.css                 # Global styles and animations
-│   └── app.html                # HTML template
-├── static/
-│   └── assets/                 # Static assets
-├── svelte.config.js            # SvelteKit configuration
-├── vite.config.ts              # Vite configuration
-└── tsconfig.json               # TypeScript configuration
+```text
+├── 📁 lib
+│   ├── 📁 assets
+│   │   └── 🖼️ favicon.svg
+│   ├── 📁 components
+│   │   ├── 📁 seasonal
+│   │   │   ├── 📄 AutumnEffect.svelte
+│   │   │   ├── 📄 HalloweenEffect.svelte
+│   │   │   ├── 📄 NewYearEffect.svelte
+│   │   │   ├── 📄 SakuraEffect.svelte
+│   │   │   ├── 📄 SeasonalEffectsDebug.svelte
+│   │   │   ├── 📄 SnowEffect.svelte
+│   │   │   └── 📄 SummerEffect.svelte
+│   │   ├── 📄 About.svelte
+│   │   ├── 📄 Contact.svelte
+│   │   ├── 📄 Experience.svelte
+│   │   ├── 📄 Footer.svelte
+│   │   ├── 📄 Hero.svelte
+│   │   ├── 📄 Navbar.svelte
+│   │   ├── 📄 Projects.svelte
+│   │   └── 📄 Skills.svelte
+│   ├── 📄 index.ts
+│   └── 🎨 performance.css
+├── 📁 routes
+│   ├── 📄 +layout.svelte
+│   ├── 📄 +layout.ts
+│   └── 📄 +page.svelte
+├── 🎨 app.css
+├── 📄 app.d.ts
+└── 🌐 app.html
 ```
 
 ## 🎯 Key Components
