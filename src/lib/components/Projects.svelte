@@ -132,9 +132,9 @@
 			title: 'SpazzApp',
 			description: 'Web app to manage cleaning tasks between roommates.',
 			techTags: ['Heuristics', 'Streamlit'],
-			githubUrl: 'https://github.com/GiuseppeBellamacina/SpazzApp',
+			githubUrl: 'https://github.com/GiuseppeBellamacina/SpazzApp-streamlit',
 			externalLink: {
-				url: 'https://spazzapp.streamlit.app',
+				url: 'https://spazzapp2.streamlit.app',
 				type: 'demo',
 				icon: 'fas fa-external-link-alt'
 			}
