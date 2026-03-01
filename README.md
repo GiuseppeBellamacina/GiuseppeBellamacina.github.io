@@ -100,35 +100,63 @@ bun run format:check
 ## 📂 Project Structure
 
 ```text
-├── 📁 lib
+├── 📁 .github
+│   └── 📁 workflows
+│       └── ⚙️ deploy.yml
+├── 📁 src
+│   ├── 📁 lib
+│   │   ├── 📁 assets
+│   │   │   └── 🖼️ favicon.svg
+│   │   ├── 📁 components
+│   │   │   ├── 📁 seasonal
+│   │   │   │   ├── 📄 AutumnEffect.svelte
+│   │   │   │   ├── 📄 HalloweenEffect.svelte
+│   │   │   │   ├── 📄 NewYearEffect.svelte
+│   │   │   │   ├── 📄 SakuraEffect.svelte
+│   │   │   │   ├── 📄 SeasonalEffectsDebug.svelte
+│   │   │   │   ├── 📄 SnowEffect.svelte
+│   │   │   │   └── 📄 SummerEffect.svelte
+│   │   │   ├── 📄 About.svelte
+│   │   │   ├── 📄 BackToTop.svelte
+│   │   │   ├── 📄 Contact.svelte
+│   │   │   ├── 📄 CursorTrail.svelte
+│   │   │   ├── 📄 Experience.svelte
+│   │   │   ├── 📄 Footer.svelte
+│   │   │   ├── 📄 Hero.svelte
+│   │   │   ├── 📄 Navbar.svelte
+│   │   │   ├── 📄 Projects.svelte
+│   │   │   ├── 📄 ScrollProgress.svelte
+│   │   │   └── 📄 Skills.svelte
+│   │   ├── 📁 stores
+│   │   │   └── 📄 seasonStore.ts
+│   │   ├── 📄 index.ts
+│   │   └── 🎨 performance.css
+│   ├── 📁 routes
+│   │   ├── 📄 +layout.svelte
+│   │   ├── 📄 +layout.ts
+│   │   └── 📄 +page.svelte
+│   ├── 🎨 app.css
+│   ├── 📄 app.d.ts
+│   └── 🌐 app.html
+├── 📁 static
 │   ├── 📁 assets
-│   │   └── 🖼️ favicon.svg
-│   ├── 📁 components
-│   │   ├── 📁 seasonal
-│   │   │   ├── 📄 AutumnEffect.svelte
-│   │   │   ├── 📄 HalloweenEffect.svelte
-│   │   │   ├── 📄 NewYearEffect.svelte
-│   │   │   ├── 📄 SakuraEffect.svelte
-│   │   │   ├── 📄 SeasonalEffectsDebug.svelte
-│   │   │   ├── 📄 SnowEffect.svelte
-│   │   │   └── 📄 SummerEffect.svelte
-│   │   ├── 📄 About.svelte
-│   │   ├── 📄 Contact.svelte
-│   │   ├── 📄 Experience.svelte
-│   │   ├── 📄 Footer.svelte
-│   │   ├── 📄 Hero.svelte
-│   │   ├── 📄 Navbar.svelte
-│   │   ├── 📄 Projects.svelte
-│   │   └── 📄 Skills.svelte
-│   ├── 📄 index.ts
-│   └── 🎨 performance.css
-├── 📁 routes
-│   ├── 📄 +layout.svelte
-│   ├── 📄 +layout.ts
-│   └── 📄 +page.svelte
-├── 🎨 app.css
-├── 📄 app.d.ts
-└── 🌐 app.html
+│   │   ├── 📁 icons
+│   │   │   ├── 🖼️ ...
+│   │   ├── 📁 projects
+│   │   │   ├── 🖼️ ...
+│   │   ├── 📕 cv.pdf
+│   │   └── 🖼️ profile.png
+│   └── 📄 robots.txt
+├── ⚙️ .gitignore
+├── ⚙️ .npmrc
+├── ⚙️ .prettierignore
+├── ⚙️ .prettierrc
+├── 📝 README.md
+├── 📄 bun.lock
+├── ⚙️ package.json
+├── 📄 svelte.config.js
+├── ⚙️ tsconfig.json
+└── 📄 vite.config.ts
 ```
 
 ## 🎯 Key Components

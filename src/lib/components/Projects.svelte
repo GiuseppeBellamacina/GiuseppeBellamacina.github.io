@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, tick } from 'svelte';
 
-	let projectsSection: HTMLElement;
 	let isVisible = false;
 
 	interface Project {
@@ -10,6 +9,8 @@
 		description: string;
 		techTags: string[];
 		githubUrl: string;
+		image?: string;
+		accentColor?: string;
 		isHackathonWinner?: boolean;
 		externalLink?: {
 			url: string;
@@ -19,6 +20,17 @@
 		stars?: number;
 		starsLoaded?: boolean;
 	}
+
+	// Fallback dark cyberpunk gradients for cards without images
+	const cardGradients = [
+		'linear-gradient(135deg, #0d1b2a 0%, #0f3460 100%)',
+		'linear-gradient(135deg, #1a0533 0%, #2d1b69 100%)',
+		'linear-gradient(135deg, #0f0c29 0%, #302b63 100%)',
+		'linear-gradient(135deg, #0a1628 0%, #1e3a5f 100%)',
+		'linear-gradient(135deg, #1a1f3a 0%, #4a1f6b 100%)',
+		'linear-gradient(135deg, #0d1117 0%, #1b3a4b 100%)',
+		'linear-gradient(135deg, #0a0e27 0%, #1f2d4a 100%)'
+	];
 
 	let projects: Project[] = [
 		{
@@ -32,7 +44,8 @@
 				url: 'https://devpost.com/software/guardian-p2g0df',
 				type: 'hackathon',
 				icon: 'fas fa-trophy'
-			}
+			},
+			image: '/assets/projects/guardian.webp'
 		},
 		{
 			icon: '📸',
@@ -40,7 +53,8 @@
 			description:
 				'Deep Learning models for image restoration and enhancement with multiple degradation types.',
 			techTags: ['PyTorch', 'UNet', 'GAN', 'Computer Vision'],
-			githubUrl: 'https://github.com/GiuseppeBellamacina/Image-Enhancement'
+			githubUrl: 'https://github.com/GiuseppeBellamacina/Image-Enhancement',
+			image: '/assets/projects/imageEnhancement.webp'
 		},
 		{
 			icon: '🖼️',
@@ -52,7 +66,8 @@
 				url: 'https://steg-app.streamlit.app',
 				type: 'demo',
 				icon: 'fas fa-external-link-alt'
-			}
+			},
+			image: '/assets/projects/stegapp.webp'
 		},
 		{
 			icon: '🚚',
@@ -65,14 +80,16 @@
 				url: 'https://warehouse-swarm-intelligence-system.vercel.app',
 				type: 'demo',
 				icon: 'fas fa-external-link-alt'
-			}
+			},
+			image: '/assets/projects/warehouse.webp'
 		},
 		{
 			icon: '🧠',
 			title: 'Neural Sudoku',
 			description: 'Deep Learning model that solves Sudoku puzzles.',
 			techTags: ['PyTorch', 'Deep Learning', 'Sudoku'],
-			githubUrl: 'https://github.com/GiuseppeBellamacina/Neural-Sudoku'
+			githubUrl: 'https://github.com/GiuseppeBellamacina/Neural-Sudoku',
+			image: '/assets/projects/sudoku.webp'
 		},
 		{
 			icon: '🎮',
@@ -84,7 +101,8 @@
 				url: 'https://github.com/GiuseppeBellamacina/The-Legend-of-Turi/releases/download/game/Turi.zip',
 				type: 'download',
 				icon: 'fas fa-download'
-			}
+			},
+			image: '/assets/projects/turi.png'
 		},
 		{
 			icon: '🔍',
@@ -96,49 +114,56 @@
 				url: 'https://www.youtube.com/watch?v=ubm9zkNf8jM',
 				type: 'youtube',
 				icon: 'fab fa-youtube'
-			}
+			},
+			image: '/assets/projects/kagi.webp'
 		},
 		{
 			icon: '📊',
 			title: 'Sales Store Forecasting',
 			description: 'Time series forecasting for sales data.',
 			techTags: ['Python', 'Machine Learning'],
-			githubUrl: 'https://github.com/GiuseppeBellamacina/Sales-Store-Time-Series-Forecasting'
+			githubUrl: 'https://github.com/GiuseppeBellamacina/Sales-Store-Time-Series-Forecasting',
+			image: '/assets/projects/sales.webp'
 		},
 		{
 			icon: '👤',
 			title: 'Celebrity ResNet18',
 			description: 'Face Recognition with CNN.',
 			techTags: ['PyTorch', 'ResNet', 'Face Recognition'],
-			githubUrl: 'https://github.com/GiuseppeBellamacina/Celebrity-ResNet18'
+			githubUrl: 'https://github.com/GiuseppeBellamacina/Celebrity-ResNet18',
+			image: '/assets/projects/celebrity.webp'
 		},
 		{
 			icon: '🤖',
 			title: 'OmniBot V2',
 			description: 'Updated chatbot with Smart RAG Chain.',
 			techTags: ['RAG', 'LangChain', 'LangGraph'],
-			githubUrl: 'https://github.com/GiuseppeBellamacina/OmniBot-V2'
+			githubUrl: 'https://github.com/GiuseppeBellamacina/OmniBot-V2',
+			image: '/assets/projects/omnibot.webp'
 		},
 		{
 			icon: '🧪',
 			title: 'Little Language Model',
 			description: "Transformer trained on Dante's works.",
 			techTags: ['PyTorch', 'Transformers', 'LLM'],
-			githubUrl: 'https://github.com/GiuseppeBellamacina/Little_Language_Model'
+			githubUrl: 'https://github.com/GiuseppeBellamacina/Little_Language_Model',
+			image: '/assets/projects/dante.webp'
 		},
 		{
 			icon: '🔒',
 			title: 'VulnerabilityBot',
 			description: 'Cybersecurity tool with LLM.',
 			techTags: ['Cybersecurity', 'LLM'],
-			githubUrl: 'https://github.com/GiuseppeBellamacina/VulnerabilityBot'
+			githubUrl: 'https://github.com/GiuseppeBellamacina/VulnerabilityBot',
+			image: '/assets/projects/vulnerability.webp'
 		},
 		{
 			icon: '📚',
 			title: 'EPUB Translator',
 			description: 'Translate EPUB files with LLMs.',
 			techTags: ['EPUB', 'LLM', 'Translation'],
-			githubUrl: 'https://github.com/GiuseppeBellamacina/EPUB-Translator'
+			githubUrl: 'https://github.com/GiuseppeBellamacina/EPUB-Translator',
+			image: '/assets/projects/epub.webp'
 		},
 		{
 			icon: '🧹',
@@ -150,11 +175,12 @@
 				url: 'https://spazzapp2.streamlit.app',
 				type: 'demo',
 				icon: 'fas fa-external-link-alt'
-			}
+			},
+			image: '/assets/projects/spazzapp.webp'
 		}
 	];
 
-	// Funzione di timeout per le richieste
+	// ─── GitHub stars fetch ─────────────────────────────────────────────────────
 	function fetchWithTimeout(url: string, timeout = 5000) {
 		return Promise.race([
 			fetch(url),
@@ -183,30 +209,24 @@
 		throw new Error('Max retries reached');
 	}
 
-	// Fetch GitHub stars
 	async function fetchGitHubStars() {
-		// Crea un array di promise per fetch paralleli
-		const fetchPromises = projects.map(async (project, index) => {
+		const fetchPromises = projects.map(async (project) => {
 			try {
-				// Controllo cache (1 ora di validità)
 				const cacheKey = `github_stars_${project.githubUrl}`;
 				const cached = localStorage.getItem(cacheKey);
 				if (cached) {
 					try {
 						const { stars, timestamp } = JSON.parse(cached);
 						if (Date.now() - timestamp < 3600000) {
-							// 1 ora
 							project.stars = stars;
 							project.starsLoaded = true;
 							projects = [...projects];
 							return;
 						}
-					} catch (e) {
-						// Cache corrotta, rimuovila
+					} catch {
 						localStorage.removeItem(cacheKey);
 					}
 				}
-
 				const match = project.githubUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
 				if (match) {
 					const [, owner, repo] = match;
@@ -214,126 +234,336 @@
 					const data = await response.json();
 					project.stars = data.stargazers_count;
 					project.starsLoaded = true;
-
-					// Salva in cache
 					localStorage.setItem(
 						cacheKey,
-						JSON.stringify({
-							stars: data.stargazers_count,
-							timestamp: Date.now()
-						})
+						JSON.stringify({ stars: data.stargazers_count, timestamp: Date.now() })
 					);
-
-					projects = [...projects]; // Trigger reactivity progressivo
+					projects = [...projects];
 				}
-			} catch (error) {
-				console.error(`Failed to fetch stars for ${project.title}:`, error);
-				// Segna come caricato ma senza stelle per evitare ulteriori tentativi
+			} catch {
 				project.starsLoaded = true;
 				project.stars = undefined;
 				projects = [...projects];
 			}
 		});
-
-		// Esegui tutte le richieste in parallelo
 		await Promise.all(fetchPromises);
 	}
 
-	// Fade-in animation for project cards
-	function setupProjectCardAnimations() {
-		const cards = projectsSection?.querySelectorAll('.project-card');
-		if (!cards) return;
+	// ─── Marquee Carousel ───────────────────────────────────────────────────────
 
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						entry.target.classList.add('visible');
-					}
-				});
-			},
-			{ threshold: 0.1, rootMargin: '0px 0px -100px 0px' }
+	type ProjectWithIdx = Project & { _idx: number };
+	const enriched: ProjectWithIdx[] = projects.map((p, i) => ({ ...p, _idx: i }));
+	const row0: ProjectWithIdx[] = enriched.filter((_, i) => i % 2 === 0);
+	const row1: ProjectWithIdx[] = enriched.filter((_, i) => i % 2 === 1);
+
+	// ── Drag-scroll state ──────────────────────────────────────────────────────
+	const CARD_W = 300;
+	const GAP = 20;
+	const STEP = CARD_W + GAP; // pixels per card slot
+
+	// Each strip holds 2 copies → half-width is N * STEP
+	let halfW = [row0.length * STEP, row1.length * STEP];
+
+	let stripEls: (HTMLElement | null)[] = [null, null];
+	// pos[0] starts at 0 (scrolls left → decrements)
+	// pos[1] starts at -halfW[1] (scrolls right → increments)
+	let pos = [0, -halfW[1]];
+	let vel = [0, 0];
+	const AUTO = [-0.45, 0.5]; // px/frame auto-speed (negative = scroll left, positive = right)
+
+	let dragging = -1; // which row is being dragged (-1 = none)
+	let dragLastX = 0;
+	let dragStartX = 0;
+	let dragVel = 0;
+	let dragMoved = false; // true once mouse moved > threshold
+	let dragTargetEl: HTMLElement | null = null;
+	let rafId = 0;
+	let sectionEl: HTMLElement;
+
+	// ── Hover state ────────────────────────────────────────────────────────────
+	let hoveredProject: ProjectWithIdx | null = null;
+
+	function loop() {
+		const paused = !!hoveredProject || !!expandedProject;
+		for (let i = 0; i < 2; i++) {
+			if (dragging === i) {
+				vel[i] *= 0.85; // friction while dragging
+			} else if (!paused) {
+				// Auto-scroll, paused on hover or expand
+				vel[i] = vel[i] * 0.93 + AUTO[i] * 0.07;
+				pos[i] += vel[i];
+			}
+			// Infinite wrap
+			if (pos[i] <= -halfW[i]) pos[i] += halfW[i];
+			if (pos[i] >= 0) pos[i] -= halfW[i];
+			if (stripEls[i]) stripEls[i]!.style.transform = `translateX(${pos[i]}px)`;
+		}
+		rafId = requestAnimationFrame(loop);
+	}
+
+	function startDrag(e: MouseEvent, row: number) {
+		if (e.button !== 0) return;
+		dragging = row;
+		dragStartX = e.clientX;
+		dragLastX = e.clientX;
+		dragVel = 0;
+		dragMoved = false;
+		dragTargetEl = (e.target as HTMLElement).closest('.pcard') as HTMLElement | null;
+	}
+	function onMouseMove(e: MouseEvent) {
+		if (dragging === -1) return;
+		const dx = e.clientX - dragLastX;
+		if (!dragMoved) {
+			if (Math.abs(e.clientX - dragStartX) < 6) return; // below threshold
+			dragMoved = true;
+		}
+		dragLastX = e.clientX;
+		dragVel = dx;
+		pos[dragging] += dx;
+		if (pos[dragging] <= -halfW[dragging]) pos[dragging] += halfW[dragging];
+		if (pos[dragging] >= 0) pos[dragging] -= halfW[dragging];
+	}
+	function endDrag() {
+		if (dragging === -1) return;
+		const i = dragging;
+		if (!dragMoved) {
+			// It was a click — open the card that was pressed
+			if (dragTargetEl && hoveredProject) openCard(hoveredProject);
+		} else {
+			vel[i] = dragVel;
+		}
+		dragVel = 0;
+		dragging = -1;
+		dragMoved = false;
+		dragTargetEl = null;
+	}
+
+	// ── Hover highlight ────────────────────────────────────────────────────────
+	function onCardEnter(p: ProjectWithIdx) {
+		hoveredProject = p;
+	}
+	function onCardLeave() {
+		hoveredProject = null;
+	}
+
+	// ── Expand state ────────────────────────────────────────────────────────
+	let expandedProject: ProjectWithIdx | null = null;
+	let panelExpanded = false;
+
+	async function openCard(p: ProjectWithIdx) {
+		expandedProject = p;
+		panelExpanded = false;
+		await tick();
+		requestAnimationFrame(() =>
+			requestAnimationFrame(() => {
+				panelExpanded = true;
+			})
 		);
+	}
+	function closePanel() {
+		panelExpanded = false;
+		setTimeout(() => {
+			expandedProject = null;
+		}, 380);
+	}
+	function onKeyDown(e: KeyboardEvent) {
+		if (e.key === 'Escape') closePanel();
+	}
 
-		cards.forEach((card) => {
-			observer.observe(card);
-		});
+	function getCardBg(p: ProjectWithIdx): string {
+		if (p.accentColor) return p.accentColor;
+		return cardGradients[p._idx % cardGradients.length];
+	}
+	function getLinkLabel(type: string): string {
+		if (type === 'download') return 'Download';
+		if (type === 'youtube') return 'Watch';
+		if (type === 'hackathon') return 'Hackathon';
+		return 'Demo';
 	}
 
 	onMount(() => {
-		// IntersectionObserver for lazy loading
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting && !isVisible) {
+		rafId = requestAnimationFrame(loop);
+		window.addEventListener('mousemove', onMouseMove);
+		window.addEventListener('mouseup', endDrag);
+		window.addEventListener('keydown', onKeyDown);
+		const io = new IntersectionObserver(
+			(entries) =>
+				entries.forEach((e) => {
+					if (e.isIntersecting && !isVisible) {
 						isVisible = true;
 						fetchGitHubStars();
-						setupProjectCardAnimations();
 					}
-				});
-			},
+				}),
 			{ threshold: 0.05, rootMargin: '100px' }
 		);
-
-		if (projectsSection) {
-			observer.observe(projectsSection);
-		}
-
+		io.observe(sectionEl);
 		return () => {
-			if (projectsSection) {
-				observer.unobserve(projectsSection);
-			}
+			cancelAnimationFrame(rafId);
+			window.removeEventListener('mousemove', onMouseMove);
+			window.removeEventListener('mouseup', endDrag);
+			window.removeEventListener('keydown', onKeyDown);
+			io.disconnect();
 		};
 	});
 </script>
 
-<section id="projects" class="projects" bind:this={projectsSection}>
+<section id="projects" class="projects" bind:this={sectionEl}>
 	<div class="container">
 		<h2 class="section-title">🚀 Personal Projects</h2>
-		<div class="projects-grid">
-			{#each projects as project}
-				<div class="project-card">
-					{#if project.externalLink}
-						<a
-							href={project.externalLink.url}
-							target="_blank"
-							class="download-btn"
-							title={project.externalLink.type === 'download'
-								? 'Download'
-								: project.externalLink.type === 'demo'
-									? 'View Demo'
-									: project.externalLink.type === 'youtube'
-										? 'Watch Demo'
-										: 'View Hackathon'}
-							download={project.externalLink.type === 'download' ? true : undefined}
-						>
-							<i class={project.externalLink.icon}></i>
-						</a>
+		<p class="proj-hint">
+			Hover to highlight &nbsp;·&nbsp; drag to scroll &nbsp;·&nbsp; click to expand
+		</p>
+	</div>
+
+	<!-- ─── Row 0 ────────────────────────────────────────────────────────────── -->
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div
+		class="strip-wrap"
+		class:dragging-active={dragging === 0}
+		on:mousedown={(e) => startDrag(e, 0)}
+	>
+		<div class="strip" bind:this={stripEls[0]}>
+			{#each [...row0, ...row0] as project}
+				<article
+					class="pcard"
+					class:is-hovered={hoveredProject === project && !dragMoved}
+					class:is-dimmed={hoveredProject !== null && hoveredProject !== project}
+					style={project.image && isVisible
+						? `--bg:url('${project.image}')`
+						: `--card-grad:${getCardBg(project)}`}
+					on:mouseenter={() => onCardEnter(project)}
+					on:mouseleave={onCardLeave}
+					aria-label={project.title}
+				>
+					<div class="pcard-bg"></div>
+					<div class="pcard-overlay"></div>
+					{#if project.isHackathonWinner}
+						<span class="pcard-badge">🏆 Winner</span>
 					{/if}
-					<div class="project-icon">{project.icon}</div>
-					<h3>{project.title}</h3>
-					<p>{project.description}</p>
-					<div class="project-tech">
-						{#if project.isHackathonWinner}
-							<span class="hackathon-badge">🏆 Hackathon Winner</span>
-						{/if}
-						{#each project.techTags as tag}
-							<span class="tech-tag">{tag}</span>
-						{/each}
+					<div class="pcard-body">
+						<span class="pcard-icon">{project.icon}</span>
+						<h3 class="pcard-title">{project.title}</h3>
+						<div class="pcard-tags">
+							{#each project.techTags.slice(0, 3) as t}
+								<span class="pcard-tag">{t}</span>
+							{/each}
+						</div>
 					</div>
-					<div class="project-footer" class:has-stars={project.starsLoaded}>
-						{#if project.starsLoaded}
-							<span class="stars loaded">⭐ {project.stars}</span>
-						{:else}
-							<span class="stars"></span>
+				</article>
+			{/each}
+		</div>
+	</div>
+
+	<!-- ─── Row 1 ────────────────────────────────────────────────────────────── -->
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<div
+		class="strip-wrap"
+		class:dragging-active={dragging === 1}
+		on:mousedown={(e) => startDrag(e, 1)}
+	>
+		<div class="strip" bind:this={stripEls[1]}>
+			{#each [...row1, ...row1] as project}
+				<article
+					class="pcard"
+					class:is-hovered={hoveredProject === project && !dragMoved}
+					class:is-dimmed={hoveredProject !== null && hoveredProject !== project}
+					style={project.image && isVisible
+						? `--bg:url('${project.image}')`
+						: `--card-grad:${getCardBg(project)}`}
+					on:mouseenter={() => onCardEnter(project)}
+					on:mouseleave={onCardLeave}
+					aria-label={project.title}
+				>
+					<div class="pcard-bg"></div>
+					<div class="pcard-overlay"></div>
+					{#if project.isHackathonWinner}
+						<span class="pcard-badge">🏆 Winner</span>
+					{/if}
+					<div class="pcard-body">
+						<span class="pcard-icon">{project.icon}</span>
+						<h3 class="pcard-title">{project.title}</h3>
+						<div class="pcard-tags">
+							{#each project.techTags.slice(0, 3) as t}
+								<span class="pcard-tag">{t}</span>
+							{/each}
+						</div>
+					</div>
+				</article>
+			{/each}
+		</div>
+	</div>
+
+	<!-- ─── Expanded card panel ─────────────────────────────────────────────── -->
+	{#if expandedProject}
+		<!-- Backdrop -->
+		<!-- svelte-ignore a11y_click_events_have_key_events -->
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div class="exp-backdrop" class:is-visible={panelExpanded} on:click={closePanel}></div>
+
+		<!-- Panel — always centred, enters with scale-up -->
+		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+		<aside class="exp-panel" class:is-open={panelExpanded}>
+			<!-- visual header = same bg as card -->
+			<div
+				class="exp-visual"
+				style={expandedProject.image
+					? `background-image:url('${expandedProject.image}')`
+					: `background:${getCardBg(expandedProject)}`}
+			>
+				<div class="exp-voverlay"></div>
+				<!-- Close button -->
+				<button class="exp-close" on:click={closePanel} aria-label="Close">✕</button>
+				{#if expandedProject.isHackathonWinner}
+					<span class="exp-trophy">🏆 Hackathon Winner</span>
+				{/if}
+				<div class="exp-title-area">
+					<span class="exp-icon">{expandedProject.icon}</span>
+					<h3 class="exp-title">{expandedProject.title}</h3>
+				</div>
+			</div>
+
+			<!-- body: fades in once expanded -->
+			<div class="exp-body">
+				<p class="exp-desc">{expandedProject.description}</p>
+				<div class="exp-tags">
+					{#each expandedProject.techTags as t}
+						<span class="exp-tag">{t}</span>
+					{/each}
+				</div>
+				<div class="exp-footer">
+					{#if expandedProject.starsLoaded && expandedProject.stars !== undefined}
+						<span class="exp-stars">⭐ {expandedProject.stars} stars</span>
+					{:else}
+						<span></span>
+					{/if}
+					<div class="exp-links">
+						{#if expandedProject.externalLink}
+							<a
+								href={expandedProject.externalLink.url}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="exp-link"
+								download={expandedProject.externalLink.type === 'download' ? true : undefined}
+							>
+								<i class={expandedProject.externalLink.icon}></i>
+								{getLinkLabel(expandedProject.externalLink.type)}
+							</a>
 						{/if}
-						<a href={project.githubUrl} target="_blank" class="project-link">
-							View Project <i class="fas fa-arrow-right"></i>
+						<a
+							href={expandedProject.githubUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="exp-link exp-link-primary"
+						>
+							<i class="fab fa-github"></i> View on GitHub
 						</a>
 					</div>
 				</div>
-			{/each}
-		</div>
+			</div>
+		</aside>
+	{/if}
+
+	<div class="container">
 		<div class="view-all">
 			<a
 				href="https://github.com/GiuseppeBellamacina?tab=repositories"
@@ -345,3 +575,381 @@
 		</div>
 	</div>
 </section>
+
+<style>
+	.proj-hint {
+		text-align: center;
+		color: var(--text-muted);
+		font-size: 0.82rem;
+		margin-top: -1.5rem;
+		margin-bottom: 2.2rem;
+		opacity: 0.5;
+		letter-spacing: 0.04em;
+	}
+
+	/* ── Strip wrapper ───────────────────────────────────────────────────────── */
+	.strip-wrap {
+		width: 100%;
+		/* overflow-x:clip hides the horizontal infinite scroll without creating a
+		   scroll container, and does NOT force overflow-y to auto — so lifted
+		   cards on hover are no longer clipped vertically. */
+		overflow-x: clip;
+		overflow-y: visible;
+		padding: 18px 0; /* extra vertical room for the hover lift + shadow */
+		margin-bottom: 0;
+		cursor: grab;
+		user-select: none;
+		mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+		-webkit-mask-image: linear-gradient(
+			to right,
+			transparent 0%,
+			black 6%,
+			black 94%,
+			transparent 100%
+		);
+	}
+	.strip-wrap.dragging-active {
+		cursor: grabbing;
+	}
+
+	.strip {
+		display: flex;
+		gap: 20px;
+		width: max-content;
+		padding: 4px 0 16px;
+		will-change: transform;
+	}
+
+	/* ── Project card ─────────────────────────────────────────────────────────── */
+	.pcard {
+		position: relative;
+		width: 300px;
+		height: 380px;
+		border-radius: 16px;
+		overflow: hidden;
+		flex-shrink: 0;
+		cursor: pointer;
+		border: 1px solid rgba(255, 255, 255, 0.07);
+		transition:
+			transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+			border-color 0.25s ease,
+			box-shadow 0.25s ease,
+			opacity 0.25s ease,
+			filter 0.25s ease;
+		will-change: transform;
+	}
+	/* Hover: lift and glow, stays in the strip */
+	.pcard.is-hovered {
+		transform: translateY(-10px) scale(1.05);
+		border-color: rgba(0, 217, 255, 0.65);
+		box-shadow:
+			0 20px 60px rgba(0, 0, 0, 0.75),
+			0 0 40px rgba(0, 217, 255, 0.22),
+			0 0 0 1px rgba(0, 217, 255, 0.3);
+		z-index: 10;
+	}
+	/* Dim siblings while one is hovered */
+	.pcard.is-dimmed {
+		opacity: 0.45;
+		filter: saturate(0.6);
+	}
+
+	.pcard-bg {
+		position: absolute;
+		inset: 0;
+		/* --bg is a url(), --card-grad is a gradient — both are valid background-image values */
+		background-image: var(--bg, var(--card-grad, none));
+		background-size: cover;
+		background-position: center;
+		transition: transform 0.5s ease;
+	}
+	.pcard.is-hovered .pcard-bg {
+		transform: scale(1.03);
+	}
+
+	.pcard-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			to top,
+			rgba(4, 5, 18, 0.97) 0%,
+			rgba(4, 5, 18, 0.5) 45%,
+			rgba(4, 5, 18, 0.1) 100%
+		);
+	}
+
+	.pcard-badge {
+		position: absolute;
+		top: 1rem;
+		left: 1rem;
+		font-size: 0.6rem;
+		font-weight: 700;
+		background: linear-gradient(135deg, #ffd700, #ffed4e);
+		color: #0a0e27;
+		padding: 3px 9px;
+		border-radius: 20px;
+		z-index: 2;
+	}
+
+	.pcard-body {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		padding: 1.1rem 1.15rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+		z-index: 2;
+	}
+	.pcard-icon {
+		font-size: 2rem;
+		line-height: 1;
+	}
+	.pcard-title {
+		font-size: 1rem;
+		font-weight: 700;
+		color: #fff;
+		margin: 0;
+		line-height: 1.25;
+	}
+	.pcard-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.22rem;
+	}
+	.pcard-tag {
+		font-size: 0.56rem;
+		color: var(--primary-color);
+		background: rgba(0, 217, 255, 0.1);
+		border: 1px solid rgba(0, 217, 255, 0.3);
+		padding: 2px 7px;
+		border-radius: 20px;
+		line-height: 1.7;
+	}
+
+	/* ══════════════════════════════════════════════════════════════════════════ */
+	/* ── Expanded panel: animates from card rect → screen centre ──────────────── */
+	/* ══════════════════════════════════════════════════════════════════════════ */
+	/* Backdrop */
+	.exp-backdrop {
+		position: fixed;
+		inset: 0;
+		background: rgba(0, 0, 0, 0);
+		z-index: 9998;
+		transition: background 0.35s ease;
+		pointer-events: none;
+	}
+	.exp-backdrop.is-visible {
+		background: rgba(0, 0, 0, 0.72);
+		pointer-events: all;
+	}
+	.exp-panel {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		width: min(560px, calc(100vw - 40px));
+		height: min(680px, calc(100vh - 40px));
+		border-radius: 20px;
+		overflow: hidden;
+		background: rgba(8, 11, 30, 0.97);
+		border: 1px solid rgba(0, 217, 255, 0.35);
+		box-shadow:
+			0 0 0 1px rgba(0, 217, 255, 0.15),
+			0 60px 140px rgba(0, 0, 0, 0.92),
+			0 0 80px rgba(0, 217, 255, 0.1);
+		z-index: 9999;
+		backdrop-filter: blur(18px);
+		pointer-events: none;
+		opacity: 0;
+		/* Enters from centre with a scale-up — no positional FLIP needed */
+		transform: translate(-50%, -50%) scale(0.88);
+		transition:
+			transform 0.35s cubic-bezier(0.34, 1.28, 0.64, 1),
+			opacity 0.25s ease;
+		display: flex;
+		flex-direction: column;
+	}
+	.exp-panel.is-open {
+		opacity: 1;
+		pointer-events: all;
+		transform: translate(-50%, -50%) scale(1);
+	}
+
+	/* Close button */
+	.exp-close {
+		position: absolute;
+		top: 0.65rem;
+		right: 0.65rem;
+		z-index: 10;
+		width: 28px;
+		height: 28px;
+		border-radius: 50%;
+		border: 1px solid rgba(255, 255, 255, 0.18);
+		background: rgba(0, 0, 0, 0.45);
+		color: rgba(255, 255, 255, 0.75);
+		font-size: 0.7rem;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition:
+			background 0.15s,
+			color 0.15s;
+		padding: 0;
+		line-height: 1;
+	}
+	.exp-close:hover {
+		background: rgba(255, 255, 255, 0.12);
+		color: #fff;
+	}
+
+	/* Visual header: fixed-height, expands naturally when panel expands */
+	.exp-visual {
+		position: relative;
+		width: 100%;
+		height: 240px;
+		flex-shrink: 0;
+		background-size: cover;
+		background-position: center;
+	}
+	.exp-voverlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			to top,
+			rgba(5, 7, 22, 0.98) 0%,
+			rgba(5, 7, 22, 0.25) 55%,
+			transparent 100%
+		);
+	}
+	.exp-trophy {
+		position: absolute;
+		top: 0.75rem;
+		left: 0.9rem;
+		z-index: 2;
+		font-size: 0.62rem;
+		font-weight: 700;
+		background: linear-gradient(135deg, #ffd700, #ffed4e);
+		color: #0a0e27;
+		padding: 2px 9px;
+		border-radius: 20px;
+	}
+	.exp-title-area {
+		position: absolute;
+		bottom: 0.85rem;
+		left: 1rem;
+		right: 1rem;
+		z-index: 2;
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+	}
+	.exp-icon {
+		font-size: 2.2rem;
+		line-height: 1;
+		flex-shrink: 0;
+	}
+	.exp-title {
+		font-size: 1.15rem;
+		font-weight: 800;
+		color: #fff;
+		margin: 0;
+		letter-spacing: -0.02em;
+		text-shadow:
+			0 0 20px rgba(0, 217, 255, 0.4),
+			0 2px 8px rgba(0, 0, 0, 0.9);
+	}
+
+	/* Body content: hidden until panel is open */
+	.exp-body {
+		padding: 1.1rem 1.2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		flex: 1;
+		opacity: 0;
+		transform: translateY(8px);
+		transition:
+			opacity 0.22s ease 0.22s,
+			transform 0.22s ease 0.22s;
+		overflow-y: auto;
+	}
+	.exp-panel.is-open .exp-body {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.exp-desc {
+		font-size: 0.78rem;
+		color: var(--text-muted);
+		line-height: 1.6;
+		margin: 0;
+	}
+	.exp-tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem;
+	}
+	.exp-tag {
+		font-size: 0.6rem;
+		color: var(--primary-color);
+		background: rgba(0, 217, 255, 0.08);
+		border: 1px solid rgba(0, 217, 255, 0.28);
+		padding: 2px 8px;
+		border-radius: 20px;
+		line-height: 1.75;
+	}
+
+	.exp-footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border-top: 1px solid rgba(255, 255, 255, 0.07);
+		padding-top: 0.7rem;
+		margin-top: auto;
+	}
+	.exp-stars {
+		font-size: 0.7rem;
+		color: #888;
+	}
+	.exp-links {
+		display: flex;
+		gap: 0.65rem;
+		align-items: center;
+	}
+	.exp-link {
+		font-size: 0.7rem;
+		color: #777;
+		text-decoration: none;
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		transition: color 0.15s;
+		white-space: nowrap;
+	}
+	.exp-link:hover {
+		color: #ddd;
+	}
+	.exp-link-primary {
+		color: var(--primary-color);
+		font-weight: 700;
+	}
+	.exp-link-primary:hover {
+		color: #fff;
+	}
+
+	/* ── View all ─────────────────────────────────────────────────────────────── */
+	.view-all {
+		text-align: center;
+		margin-top: 2rem;
+	}
+
+	/* ── Mobile ───────────────────────────────────────────────────────────────── */
+	@media (max-width: 640px) {
+		.pcard {
+			width: 230px;
+			height: 290px;
+		}
+	}
+</style>
