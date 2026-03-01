@@ -55,6 +55,19 @@
 			}
 		},
 		{
+			icon: '🚚',
+			title: 'Warehouse Swarm Intelligence System',
+			description:
+				'Multi-agent system for warehouse optimization using swarm intelligence algorithms.',
+			techTags: ['Python', 'Swarm Intelligence', 'Multi-Agent', 'Optimization'],
+			githubUrl: 'https://github.com/GiuseppeBellamacina/Warehouse-Swarm-Intelligence-System',
+			externalLink: {
+				url: 'https://warehouse-swarm-intelligence-system.vercel.app',
+				type: 'demo',
+				icon: 'fas fa-external-link-alt'
+			}
+		},
+		{
 			icon: '🧠',
 			title: 'Neural Sudoku',
 			description: 'Deep Learning model that solves Sudoku puzzles.',
