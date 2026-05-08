@@ -115,7 +115,11 @@
 						?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 				}}>{$t.hero_viewExperience}</a
 			>
-			<a href="/assets/cv.pdf" download="Giuseppe_Bellamacina_CV.pdf" class="btn btn-secondary">
+			<a
+				href="https://github.com/GiuseppeBellamacina/CurriculumVitae/blob/main/cv.pdf"
+				download="Giuseppe_Bellamacina_CV.pdf"
+				class="btn btn-secondary"
+			>
 				<i class="fas fa-download"></i>
 				{$t.hero_downloadCV}
 			</a>

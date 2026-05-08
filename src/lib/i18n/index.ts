@@ -45,12 +45,17 @@ const translations = {
 		// About
 		about_title: 'About Me',
 		about_p1:
-			"Hi there! 👋 I'm Giuseppe, a Computer Science student at the University of Catania. I'm passionate about <strong>Artificial Intelligence</strong> and <strong>Cybersecurity</strong>, always diving into new challenges and exploring the unknown.",
+			"I'm an AI Engineer specialised in building <strong>LLM-based systems</strong> for information retrieval, structured reasoning, and production deployment.",
 		about_p2:
-			'Most of the time, I just end up doing weird stuff because, well... <strong>Sbaddu Supecchiu</strong>.',
+			'I currently work on AI systems deployed in operational environments, including projects for <strong>public healthcare organisations</strong> and the <strong>Italian Air Force Academy</strong>.',
 		about_p3:
-			"I'm a huge fan of Marvel and Star Wars universe, but I'm just as obsessed with anime and way too many other things to list here. I also have a deep love for video games.",
-		about_p4: "Oh, and I have a thing for cars.<br>I drive. <em>(Yes, I'm Ryan Gosling)</em>.",
+			'My work spans <strong>multi-agent architectures</strong>, <strong>Retrieval-Augmented Generation (RAG)</strong>, structured query generation in SQL, graph databases (Cypher) and semantic ontology systems (SPARQL), through to model adaptation via <strong>fine-tuning</strong>, reinforcement learning, and knowledge distillation.',
+		about_p4:
+			'I have experience building and deploying AI systems using frameworks such as <strong>LangGraph</strong> and <strong>LangChain</strong>, with a strong focus on scalability, reliability, and system behaviour under real-world conditions.',
+		about_p5:
+			'On the infrastructure side, I have worked with on-premise multi-GPU environments (<strong>H100</strong>, <strong>L40S</strong>), inference services with <strong>vLLM</strong> and <strong>Unsloth</strong>, vector databases such as <strong>FAISS</strong> and <strong>Chroma</strong>, graph databases such as <strong>Neo4j</strong>, and REST APIs built with <strong>FastAPI</strong>. I also have experience with <strong>AWS</strong>-based cloud systems.',
+		about_p6:
+			'Beyond AI systems, I bring solid software engineering expertise in <strong>Python</strong>, <strong>C/C++</strong>, asynchronous and multithreaded programming, distributed systems, Docker orchestration, CI/CD pipelines, and backend development.',
 
 		// Skills
 		skills_title: 'Tech Stack',
@@ -182,12 +187,17 @@ const translations = {
 		// About
 		about_title: 'Chi Sono',
 		about_p1:
-			"Ciao! 👋 Sono Giuseppe, studente di Informatica presso l'Università di Catania. Sono appassionato di <strong>Intelligenza Artificiale</strong> e <strong>Cybersecurity</strong>, sempre pronto a tuffarmi in nuove sfide e ad esplorare l'ignoto.",
+			"Sono un <strong>AI Engineer</strong> specializzato nella creazione di sistemi basati su LLM per il recupero di informazioni, il ragionamento strutturato e l'implementazione in produzione.",
 		about_p2:
-			'La maggior parte del tempo finisco per fare cose strane per via dello <strong>Sbaddu Supecchiu</strong>.',
+			"Attualmente lavoro su sistemi di IA utilizzati in ambienti operativi, inclusi progetti per <strong>organizzazioni sanitarie pubbliche</strong> e l'<strong>Accademia dell'Aeronautica Militare Italiana</strong>.",
 		about_p3:
-			"Sono un grande fan dell'universo Marvel e Star Wars, ma sono altrettanto ossessionato dagli anime e da troppe altre cose per elencarle tutte. Ho anche una profonda passione per i videogiochi.",
-		about_p4: 'Ah, e ho una cosa per le macchine.<br>I Drive. <em>(Sì, sono Ryan Gosling)</em>.',
+			"Il mio lavoro spazia dalle <strong>architetture multi-agente</strong>, alla <strong>generazione aumentata per il recupero di informazioni (RAG)</strong>, alla generazione di query strutturate in SQL, database a grafo (Cypher) e sistemi di ontologie semantiche (SPARQL), fino all'adattamento dei modelli tramite <strong>fine-tuning</strong>, apprendimento per rinforzo e distillazione della conoscenza.",
+		about_p4:
+			"Ho esperienza nello sviluppo e nell'implementazione di sistemi di IA usando framework come <strong>LangGraph</strong> e <strong>LangChain</strong>, con una forte attenzione alla scalabilità, all'affidabilità e al comportamento del sistema in condizioni reali.",
+		about_p5:
+			'Dal punto di vista infrastrutturale, ho lavorato con ambienti on-premise multi-GPU (<strong>H100</strong>, <strong>L40S</strong>), servizi di inferenza con <strong>vLLM</strong> e <strong>Unsloth</strong>, database vettoriali come <strong>FAISS</strong> e <strong>Chroma</strong>, database a grafo come <strong>Neo4j</strong> e API REST create con <strong>FastAPI</strong>. Ho anche esperienza con sistemi cloud basati su <strong>AWS</strong>.',
+		about_p6:
+			'Oltre ai sistemi di intelligenza artificiale, possiedo una solida esperienza di ingegneria del software in <strong>Python</strong>, <strong>C/C++</strong>, programmazione asincrona e multithread, sistemi distribuiti, orchestrazione Docker, pipeline CI/CD e sviluppo backend.',
 
 		// Skills
 		skills_title: 'Tech Stack',

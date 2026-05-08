@@ -35,48 +35,33 @@ const timelineItemsEN: TimelineItem[] = [
 		title: 'AI Software Engineer',
 		subtitle: 'RICCA IT',
 		description:
-			'Building LLM-based systems, multi-agent architectures, and RAG pipelines for production environments',
+			'Design and development of LLM-based AI systems and multi-agent architectures for complex reasoning and decision-making workflows',
 		highlights: [
-			'Designed and deployed LLM-based systems for real-world applications, including solutions used by ASP (Azienda Sanitaria Provinciale)',
-			'Built multi-agent architectures for complex reasoning tasks, separating planning, execution, and validation into coordinated components',
-			'Developed end-to-end RAG pipelines (data ingestion, indexing, retrieval, reranking, generation) with focus on scalability and latency',
-			'Integrated heterogeneous AI modules into cohesive, production-ready systems, improving reliability and maintainability',
-			'Applied model adaptation techniques including fine-tuning, reinforcement learning (GRPO), knowledge distillation, and domain adaptation',
-			'Evaluated LLM systems beyond standard benchmarks, focusing on robustness, consistency, and behavior under real-world constraints'
+			'Design and development of LLM-based AI systems and multi-agent architectures for complex reasoning and decision-making workflows',
+			'Development of scalable Retrieval-Augmented Generation (RAG) pipelines, including data ingestion, indexing, retrieval orchestration, and contextual reasoning',
+			'Implementation of structured reasoning workflows integrating vector search, SQL querying, graph databases, and semantic systems',
+			'Architectural refactoring and integration of distributed AI modules into cohesive, production-ready systems focused on scalability and maintainability',
+			'Research, evaluation, and prototyping of emerging AI techniques to improve robustness, interpretability, and system reliability under real operational constraints',
+			'Collaboration with cross-functional teams for end-to-end development, validation, and deployment of AI solutions'
 		],
 		durationSince: [2025, 9]
 	},
 	{
 		type: 'work',
 		icon: 'fas fa-briefcase',
-		date: 'December 2024 - May 2025',
-		title: 'Artificial Intelligence Engineer & Data Scientist',
-		subtitle: 'Intellisync',
+		date: 'June 2023 - July 2025',
+		title: 'AI/ML Engineer',
+		subtitle: 'IntelliSync',
 		description:
-			'AI Research and Development with focus on multi-agent systems, RAG architectures, and predictive analytics',
+			'Research and development of AI solutions based on LLMs and multi-agent architectures, with a focus on scalable and domain-specific systems',
 		highlights: [
-			'Developed LLM-based and multi-agent solutions, including systems used by the Italian Air Force Academy (Accademia Aeronautica Militare Italiana)',
-			'Designed and implemented RAG architectures, from requirement analysis to system design and deployment',
-			'Built agentic pipelines translating natural language into executable queries across SQL, graph databases (Cypher), semantic systems (SPARQL), and vector search',
-			'Developed predictive models on large-scale wind turbine datasets, including anomaly detection and energy loss forecasting',
-			'Contributed to solutions later integrated into Yokogawa products through collaboration with BaxEnergy and Farsight',
-			'Performed advanced data analysis to support operational decision-making'
+			'Research and development of AI solutions based on LLMs and multi-agent architectures, with a focus on scalable and domain-specific systems',
+			'Design and implementation of Retrieval-Augmented Generation (RAG) pipelines and functional prototypes for validating AI-driven workflows and technical approaches',
+			'Development of predictive models and anomaly detection systems on large-scale industrial datasets from wind turbines, using neural networks and machine learning techniques',
+			'Analysis of operational and telemetry data to identify energy losses, anomalous patterns, and predictive maintenance signals',
+			'Collaboration on AI solutions and data-driven systems connected to industrial and operational environments'
 		],
-		durationFixed: '6 months'
-	},
-	{
-		type: 'work',
-		icon: 'fas fa-code',
-		date: 'June 2024 - November 2024',
-		title: 'AI Research and Development',
-		subtitle: 'Intellisync - Corporate Internship',
-		description: 'Design and development of advanced RAG-based chatbot systems',
-		highlights: [
-			'Chatbot development based on Retrieval-Augmented Generation (RAG) techniques',
-			'Analysis of customer needs to define system architecture',
-			'Definition of functional requirements and technical specifications'
-		],
-		durationFixed: '6 months'
+		durationFixed: '2 years 2 months'
 	},
 	{
 		type: 'education',
@@ -123,48 +108,33 @@ const timelineItemsIT: TimelineItem[] = [
 		title: 'AI Software Engineer',
 		subtitle: 'RICCA IT',
 		description:
-			'Sviluppo di sistemi basati su LLM, architetture multi-agente e pipeline RAG per ambienti di produzione',
+			'Progettazione e sviluppo di sistemi AI basati su LLM e architetture multi-agente per workflow di ragionamento complesso e decision-making',
 		highlights: [
-			"Progettazione e deploy di sistemi LLM per applicazioni reali, incluse soluzioni utilizzate dall'ASP (Azienda Sanitaria Provinciale)",
-			'Sviluppo di architetture multi-agente per ragionamento complesso, separando pianificazione, esecuzione e validazione in componenti coordinati',
-			'Implementazione di pipeline RAG end-to-end (ingestione, indicizzazione, retrieval, reranking, generazione) con focus su scalabilità e latenza',
-			'Integrazione di moduli AI eterogenei in sistemi coesi e production-ready, migliorando affidabilità e manutenibilità',
-			'Applicazione di tecniche di adattamento del modello: fine-tuning, reinforcement learning (GRPO), knowledge distillation e domain adaptation',
-			'Valutazione di sistemi LLM oltre i benchmark standard, con focus su robustezza, consistenza e comportamento in scenari reali'
+			'Progettazione e sviluppo di sistemi AI basati su LLM e architetture multi-agente per workflow di ragionamento complesso e decision-making',
+			'Sviluppo di pipeline Retrieval-Augmented Generation (RAG) scalabili, inclusi ingestione dati, indicizzazione, orchestrazione del retrieval e ragionamento contestuale',
+			'Implementazione di workflow di ragionamento strutturato che integrano vector search, query SQL, database a grafo e sistemi semantici',
+			'Refactoring architetturale e integrazione di moduli AI distribuiti in sistemi coesi e production-ready, con focus su scalabilità e manutenibilità',
+			'Ricerca, valutazione e prototipazione di tecniche AI emergenti per migliorare robustezza, interpretabilità e affidabilità del sistema in condizioni operative reali',
+			'Collaborazione con team cross-funzionali per lo sviluppo end-to-end, la validazione e il deploy di soluzioni AI'
 		],
 		durationSince: [2025, 9]
 	},
 	{
 		type: 'work',
 		icon: 'fas fa-briefcase',
-		date: 'Dicembre 2024 - Maggio 2025',
-		title: 'Artificial Intelligence Engineer & Data Scientist',
-		subtitle: 'Intellisync',
+		date: 'Giugno 2023 - Luglio 2025',
+		title: 'AI/ML Engineer',
+		subtitle: 'IntelliSync',
 		description:
-			'Ricerca e Sviluppo AI con focus su sistemi multi-agente, architetture RAG e analisi predittiva',
+			'Ricerca e sviluppo di soluzioni AI basate su LLM e architetture multi-agente, con focus su sistemi scalabili e specifici per dominio',
 		highlights: [
-			"Sviluppo di soluzioni LLM-based e multi-agente, inclusi sistemi in uso presso l'Accademia Aeronautica Militare Italiana",
-			"Progettazione e implementazione di architetture RAG, dall'analisi dei requisiti fino al design di sistema e al deploy",
-			'Sviluppo di pipeline agentiche per la traduzione del linguaggio naturale in query eseguibili su SQL, grafi (Cypher), sistemi semantici (SPARQL) e vector search',
-			'Sviluppo di modelli predittivi su dataset di turbine eoliche su larga scala, inclusi rilevamento anomalie e previsione perdite energetiche',
-			'Contributo a soluzioni successivamente integrate nei prodotti Yokogawa tramite collaborazione con BaxEnergy e Farsight',
-			'Analisi avanzata dei dati a supporto delle decisioni operative'
+			'Ricerca e sviluppo di soluzioni AI basate su LLM e architetture multi-agente, con focus su sistemi scalabili e specifici per dominio',
+			'Progettazione e implementazione di pipeline Retrieval-Augmented Generation (RAG) e prototipi funzionali per la validazione di workflow AI-driven e approcci tecnici',
+			'Sviluppo di modelli predittivi e sistemi di rilevamento anomalie su dataset industriali su larga scala da turbine eoliche, usando reti neurali e tecniche di machine learning',
+			'Analisi di dati operativi e telemetrici per identificare perdite energetiche, pattern anomali e segnali di manutenzione predittiva',
+			'Collaborazione su soluzioni AI e sistemi data-driven connessi ad ambienti industriali e operativi'
 		],
-		durationFixed: '6 mesi'
-	},
-	{
-		type: 'work',
-		icon: 'fas fa-code',
-		date: 'Giugno 2024 - Novembre 2024',
-		title: 'Ricerca e Sviluppo AI',
-		subtitle: 'Intellisync - Tirocinio Aziendale',
-		description: 'Progettazione e sviluppo di sistemi chatbot avanzati basati su RAG',
-		highlights: [
-			'Sviluppo di chatbot basati su tecniche di Retrieval-Augmented Generation (RAG)',
-			"Analisi delle esigenze del cliente per definire l'architettura del sistema",
-			'Definizione dei requisiti funzionali e delle specifiche tecniche'
-		],
-		durationFixed: '6 mesi'
+		durationFixed: '2 anni 2 mesi'
 	},
 	{
 		type: 'education',
@@ -197,8 +167,7 @@ export function getTimelineItems(lang: Lang): TimelineItem[] {
 /** Machine-readable work periods for cumulative experience calculation */
 const workPeriods: { start: [number, number]; end?: [number, number] }[] = [
 	// [year, month(1-12)]
-	{ start: [2024, 6], end: [2024, 11] }, // Intellisync Internship
-	{ start: [2024, 12], end: [2025, 5] }, // Intellisync
+	{ start: [2023, 6], end: [2025, 7] }, // Intellisync
 	{ start: [2025, 9] } // RICCA IT — ongoing
 ];
 

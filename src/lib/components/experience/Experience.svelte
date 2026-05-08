@@ -122,7 +122,11 @@
 		<h2 class="section-title">{$t.exp_title}</h2>
 
 		<div class="cv-download">
-			<a href="/assets/cv.pdf" download="Giuseppe_Bellamacina_CV.pdf" class="btn btn-primary">
+			<a
+				href="https://github.com/GiuseppeBellamacina/CurriculumVitae/blob/main/cv.pdf"
+				download="Giuseppe_Bellamacina_CV.pdf"
+				class="btn btn-primary"
+			>
 				<i class="fas fa-download"></i>
 				{$t.exp_downloadCV}
 			</a>

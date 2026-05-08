@@ -71,7 +71,6 @@ static/
     icons/                   # Icone tech stack (target: max 128px, ~2-8KB ciascuna)
     projects/                # Screenshot progetti (target: max 800px, formato WebP)
     profile.avif/.png/.webp  # Foto profilo (.png tenuto come fallback per og:image)
-    cv.pdf                   # CV
 scripts/
   optimize-assets.mjs        # Script ottimizzazione + conversione WebP
 ```

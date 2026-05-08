@@ -87,6 +87,8 @@
 				<p>{@html $t.about_p2}</p>
 				<p>{@html $t.about_p3}</p>
 				<p>{@html $t.about_p4}</p>
+				<p>{@html $t.about_p5}</p>
+				<p>{@html $t.about_p6}</p>
 			</div>
 
 			<!-- Interactive terminal -->
