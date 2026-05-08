@@ -133,7 +133,6 @@
 			</a>
 		</div>
 
-		<!-- TODO: re-enable when experience > 3 years
 		<div class="exp-total">
 			<span class="exp-total-badge">
 				<i class="fas fa-briefcase"></i>
@@ -151,7 +150,6 @@
 				</span>
 			</span>
 		</div>
-		-->
 
 		<div class="tl">
 			<div class="tl-line"></div>
