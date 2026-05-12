@@ -1,6 +1,10 @@
 {
 	"name": "Giuseppe Bellamacina - Portfolio",
 	"short_name": "Portfolio",
+	"description": "Giuseppe Bellamacina — AI Engineer & Software Developer.",
+	"lang": "it",
+	"start_url": "/",
+	"scope": "/",
 	"icons": [
 		{
 			"src": "/android-chrome-192x192.png",
