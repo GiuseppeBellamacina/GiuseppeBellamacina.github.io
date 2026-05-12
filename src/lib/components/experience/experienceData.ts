@@ -8,6 +8,8 @@ export interface TimelineItem {
 	subtitle: string;
 	description: string;
 	highlights: string[];
+	logo?: string;
+	linkedinUrl?: string;
 	/** Hardcoded localized label for completed experiences, e.g. "6 months" */
 	durationFixed?: string;
 	/** Start date [year, month 1-12] for ongoing experiences — duration auto-calculated */
@@ -21,6 +23,7 @@ const timelineItemsEN: TimelineItem[] = [
 		date: '2025 - Present',
 		title: "Master's Degree in Machine Learning and Artificial Intelligence",
 		subtitle: 'Università degli Studi di Catania',
+		logo: '/experience_logos/unict.jpeg',
 		description: 'Advanced studies in cutting-edge AI technologies and methodologies',
 		highlights: [
 			'Deep Learning and Neural Network Architectures',
@@ -34,6 +37,8 @@ const timelineItemsEN: TimelineItem[] = [
 		date: 'September 2025 - Present',
 		title: 'AI Software Engineer',
 		subtitle: 'RICCA IT',
+		logo: '/experience_logos/ricca.jpeg',
+		linkedinUrl: 'https://www.linkedin.com/company/ricca-s-r-l-/',
 		description:
 			'Design and development of LLM-based AI systems and multi-agent architectures for complex reasoning and decision-making workflows',
 		highlights: [
@@ -52,6 +57,8 @@ const timelineItemsEN: TimelineItem[] = [
 		date: 'June 2023 - July 2025',
 		title: 'AI/ML Engineer',
 		subtitle: 'IntelliSync',
+		logo: '/experience_logos/intellisync.jpeg',
+		linkedinUrl: 'https://www.linkedin.com/company/intellisync/',
 		description:
 			'Research and development of AI solutions based on LLMs and multi-agent architectures, with a focus on scalable and domain-specific systems',
 		highlights: [
@@ -69,6 +76,7 @@ const timelineItemsEN: TimelineItem[] = [
 		date: '2021 - 2024',
 		title: "Bachelor's Degree in Computer Science",
 		subtitle: 'Università degli Studi di Catania',
+		logo: '/experience_logos/unict.jpeg',
 		description: 'Graduated with honors, specialization in Data Elaboration and Applications',
 		highlights: [
 			'Graduation Grade: 110 cum Laude',
@@ -94,6 +102,7 @@ const timelineItemsIT: TimelineItem[] = [
 		date: '2025 - Presente',
 		title: 'Laurea Magistrale in Machine Learning e Intelligenza Artificiale',
 		subtitle: 'Università degli Studi di Catania',
+		logo: '/experience_logos/unict.jpeg',
 		description: "Studi avanzati in tecnologie e metodologie AI all'avanguardia",
 		highlights: [
 			'Deep Learning e Architetture di Reti Neurali',
@@ -107,6 +116,8 @@ const timelineItemsIT: TimelineItem[] = [
 		date: 'Settembre 2025 - Presente',
 		title: 'AI Software Engineer',
 		subtitle: 'RICCA IT',
+		logo: '/experience_logos/ricca.jpeg',
+		linkedinUrl: 'https://www.linkedin.com/company/ricca-s-r-l-/',
 		description:
 			'Progettazione e sviluppo di sistemi AI basati su LLM e architetture multi-agente per workflow di ragionamento complesso e decision-making',
 		highlights: [
@@ -125,6 +136,8 @@ const timelineItemsIT: TimelineItem[] = [
 		date: 'Giugno 2023 - Luglio 2025',
 		title: 'AI/ML Engineer',
 		subtitle: 'IntelliSync',
+		logo: '/experience_logos/intellisync.jpeg',
+		linkedinUrl: 'https://www.linkedin.com/company/intellisync/',
 		description:
 			'Ricerca e sviluppo di soluzioni AI basate su LLM e architetture multi-agente, con focus su sistemi scalabili e specifici per dominio',
 		highlights: [
@@ -142,6 +155,7 @@ const timelineItemsIT: TimelineItem[] = [
 		date: '2021 - 2024',
 		title: 'Laurea Triennale in Informatica',
 		subtitle: 'Università degli Studi di Catania',
+		logo: '/experience_logos/unict.jpeg',
 		description: 'Laureato con lode, specializzazione in Elaborazione Dati e Applicazioni',
 		highlights: [
 			'Voto di Laurea: 110 e Lode',

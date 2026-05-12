@@ -180,8 +180,48 @@
 								</span>
 							{/if}
 						</div>
-						<h3 class="tl-title">{item.title}</h3>
-						<h4 class="tl-subtitle">{item.subtitle}</h4>
+						<div class="tl-header-row">
+							{#if item.logo}
+								{#if item.linkedinUrl}
+									<a
+										href={item.linkedinUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="tl-company-link"
+										aria-label="{item.subtitle} on LinkedIn"
+									>
+										<img
+											class="tl-company-logo"
+											src={item.logo}
+											alt="{item.subtitle} logo"
+											loading="lazy"
+										/>
+									</a>
+								{:else}
+									<img
+										class="tl-company-logo"
+										src={item.logo}
+										alt="{item.subtitle} logo"
+										loading="lazy"
+									/>
+								{/if}
+							{/if}
+							<div class="tl-header-text">
+								<h3 class="tl-title">{item.title}</h3>
+								<h4 class="tl-subtitle">
+									{#if item.linkedinUrl}
+										<a
+											href={item.linkedinUrl}
+											target="_blank"
+											rel="noopener noreferrer"
+											class="tl-company-name-link">{item.subtitle}</a
+										>
+									{:else}
+										{item.subtitle}
+									{/if}
+								</h4>
+							</div>
+						</div>
 						<p class="tl-desc">{item.description}</p>
 						{#if item.highlights.length > 0}
 							<ul class="tl-highlights">
